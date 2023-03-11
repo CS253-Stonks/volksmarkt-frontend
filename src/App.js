@@ -1,8 +1,12 @@
 import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import SignIn from './SignIn';
 
 function App() {
   return (
+    <Router>
+      <Switch>
+        <Route exact path='/'>
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -19,6 +23,12 @@ function App() {
         </a>
       </header>
     </div>
+        </Route>
+        <Route exact path='/SignIn'>
+          <SignIn />
+        </Route>
+    </Switch>
+    </Router>
   );
 }
 

@@ -50,3 +50,31 @@ code {
     transform: rotate(360deg);
   }
 }
+
+.SignIn {
+  color: black;
+  text-align: center;
+}
+
+.SignIn input {
+  width: 30%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block;
+  background-color: rgb(56, 52, 52);
+  color: white;
+  text-align: center;
+}
+
+
+
+.SignIn button {
+  background: #8d14de;
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
