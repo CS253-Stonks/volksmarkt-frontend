@@ -45,7 +45,7 @@ const Signup = () => {
     return ( 
         <div className="SignUp">
             <h1>User Sign Up</h1>
-            <p>Already have an account? <Link to='/SignIn'></Link></p>
+            <p>Already have an account? <Link to='/SignIn'>Sign In</Link></p>
             <form onSubmit={tryRegister}>
             <label>User ID</label>
             <input type="text" required 
