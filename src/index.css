@@ -52,8 +52,12 @@ code {
 }
 
 .SignIn {
-  color: black;
-  text-align: center;
+  background-color: grey;
+  padding: 20px;
+  border: 20px black;
+  margin: 50px;
+  width: 600px;
+  height: 500px;
 }
 
 .SignIn input {
@@ -67,8 +71,6 @@ code {
   color: white;
   text-align: center;
 }
-
-
 
 .SignIn button {
   background: #8d14de;
