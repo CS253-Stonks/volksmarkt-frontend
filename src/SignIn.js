@@ -15,23 +15,15 @@ const SignIn = () => {
         })
     }, [])
     const tryLogin = (e) => {
-        var found = false;
-        console.log(userID);
-        console.log(Pass);
-        setStatus('');
-        setLoading(true);
         e.preventDefault();
-        
-        users.map((user) => {
-            if(user['userID'] == userID && user['password'] == Pass){
-                setStatus("Login Successful. Redirecting...");
-                setLoading(false);
-                //redirect using useHistory: ToDo
-            }
+        const match = users.filter((user) => {
+            return user['userID'] == userID && user['password'] == Pass;
         })
-        if(!isLoading && loginStatus == ''){
-            console.log("there\n" + loginStatus + isLoading);
-            setStatus("Incorrect UserID or Password");
+        if(match.length == 0){
+            setStatus("Incorrect User ID or Password");
+        }
+        else{
+            setStatus("Welcome back, " + match[0]['name']);
         }
     }
     return (  
