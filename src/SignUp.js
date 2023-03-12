@@ -56,11 +56,11 @@ const Signup = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}/>
             <label>Enter Password</label>
-            <input type="text" required 
+            <input type="password" required 
             value={pass1}
             onChange={(e) => setPass1(e.target.value)}/>
             <label>Reenter Password</label>
-            <input type="text" required 
+            <input type="password" required 
             value={pass2}
             onChange={(e) => setPass2(e.target.value)}/>
             <button>Sign Up</button>
