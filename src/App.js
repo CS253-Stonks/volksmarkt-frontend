@@ -2,8 +2,11 @@ import logo from './logo.svg';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SignIn from './SignIn';
 import Signup from './SignUp';
+import NavBar from './components/Navbar/navbar';
 function App() {
   return (
+    <>
+    <NavBar />
     <Router>
       <Switch>
         <Route exact path='/'>
@@ -32,6 +35,7 @@ function App() {
         </Route>
     </Switch>
     </Router>
+    </>
   );
 }
 
