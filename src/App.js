@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SignIn from './SignIn';
 import Signup from './SignUp';
 import NavBar from './components/Navbar/navbar';
+import Dashboard from './components/Dashboard/dashboard';
 function App() {
   return (
     <>
@@ -10,22 +11,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path='/'>
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <Dashboard />
         </Route>
         <Route exact path='/SignIn'>
           <SignIn />
