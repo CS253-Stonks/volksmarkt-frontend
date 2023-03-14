@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 
 export default function NavBar() {
   return (
@@ -42,7 +42,9 @@ export default function NavBar() {
               </Route>
             </Switch>
           </Router>
+          <Link to='/SignIn'>
           <Button color="inherit">Login</Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </Box>
