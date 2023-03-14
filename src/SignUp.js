@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { useHistory, withRouter } from 'react-router-dom';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -28,7 +28,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignUp() {
+function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,7 +37,10 @@ export default function SignUp() {
       password: data.get('password'),
     });
   };
-
+  const history = useHistory();
+  const moveToSignIn = () => {
+    history.push('/SignIn');
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -117,7 +120,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="" variant="body2" onClick={moveToSignIn}>
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -129,3 +132,5 @@ export default function SignUp() {
     </ThemeProvider>
   );
 }
+
+export default withRouter(SignUp);

@@ -7,8 +7,8 @@ import Dashboard from './components/Dashboard/dashboard';
 function App() {
   return (
     <>
-    <NavBar />
     <Router>
+    <NavBar />
       <Switch>
         <Route exact path='/'>
         <Dashboard />

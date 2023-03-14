@@ -8,8 +8,15 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
+function NavBar() {
 
-export default function NavBar() {
+  const history = useHistory();
+
+  const handleLogin = () => {
+    console.log("hello" , history)
+    history.push("/SignIn");
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -23,7 +30,6 @@ export default function NavBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Router>
             <Switch>
               <Route exact path="/">
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -41,12 +47,10 @@ export default function NavBar() {
                 </Typography>
               </Route>
             </Switch>
-          </Router>
-          <Link to='/SignIn'>
-          <Button color="inherit">Login</Button>
-          </Link>
+          <Button color="inherit" onClick={handleLogin}>Login</Button>
         </Toolbar>
       </AppBar>
     </Box>
   );
 }
+export default withRouter(NavBar)
