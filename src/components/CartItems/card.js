@@ -6,17 +6,34 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import GroupedButtons from './GroupedButtons';
 import Button from '@mui/material/Button';
+import { useState } from 'react';
 
-export default function CartCard() {
+export default function CartCard(props) {
+
+    const {productName, description, quantity, price, id, list, setList} = props;
+    
+    const getTotalPrice = (quantity, price) => {
+        return quantity*price;
+    }
+
+    const [totalPrice, setTotalPrice] = useState(getTotalPrice(quantity, price));
+
+    const removeItemFromList = (e) => {
+        const newList = (list.filter((item) => {
+            return item.id !== id;
+        }))
+        setList(newList);
+    }
+
     return (
         <Card sx={{ 
             display: 'flex',
-            height: '165px', 
-            width: '40%',
+            height: '180px', 
+            width: '50%',
             flexDirection: 'row',
             borderRadius: 0, 
             boxShadow: '3px 3px 5px rgba(0, 0, 0, 0.25)',
-            margin: '20px',
+            margin: '10px auto',
         }}>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <CardContent sx={{ 
@@ -24,20 +41,25 @@ export default function CartCard() {
                     marginX: '30px',
                 }}>
                     <Typography component="div" variant="h5">
-                        Product Name
+                        {productName}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary" component="div">
-                        Description
+                        {description}
                     </Typography>
                     <Typography variant="subtitle2" color="text.secondary" component="div">
-                        Quantity:
+                        Price: {price}
                     </Typography>
                     <Typography variant="subtitle2" color="text.secondary" component="div">
-                        Total Price:
+                        Total Price: {totalPrice}
                     </Typography>
                     <div>
-                        <GroupedButtons />
-                        <Button variant="outlined" sx={{
+                        <GroupedButtons 
+                            removeFromList={removeItemFromList} 
+                            quantity={quantity} 
+                            price={price} 
+                            setTotalPrice={setTotalPrice}
+                        />
+                        <Button variant="outlined" onClick={removeItemFromList} sx={{
                             marginLeft: '20px',
                             height: '30px'
                         }}>
@@ -50,7 +72,7 @@ export default function CartCard() {
                 component="img"
                 sx={{ 
                     height: '100%',
-                    width: '30%',
+                    width: '35%',
                     alignSelf: 'flex-end',
                     marginLeft: 'auto',
                 }}
