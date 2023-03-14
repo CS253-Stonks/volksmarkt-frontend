@@ -4,11 +4,10 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import luffy from "../images/luffy.png";
 import GroupedButtons from './GroupedButtons';
 import Button from '@mui/material/Button';
 
-export default function MediaControlCard() {
+export default function CartCard() {
     return (
         <Card sx={{ 
             display: 'flex',
@@ -55,7 +54,7 @@ export default function MediaControlCard() {
                     alignSelf: 'flex-end',
                     marginLeft: 'auto',
                 }}
-                image={luffy}
+                image="https://img.atcoder.jp/assets/atcoder.png"
                 alt="Live from space album cover"
             />
         </Card>
