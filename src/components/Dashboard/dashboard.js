@@ -1,35 +1,54 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import React from 'react';
+import { Grid, Card, CardContent, CardMedia, Typography, Select, MenuItem, Box } from '@mui/material';
 
-function StoreCard() {
+const StoreCard = ({ product }) => {
+  const [quantity, setQuantity] = React.useState(1);
+
+  const handleQuantityChange = (event) => {
+    setQuantity(event.target.value);
+  };
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          alt="green iguana"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+    <Card>
+      <Grid container>
+        <Grid item xs={12} sm={4}>
+          <CardMedia component="img" height="200" image={product.imageUrl} alt={product.name} />
+        </Grid>
+        <Grid item xs={12} sm={8}>
+          <CardContent>
+            <Typography variant="h5" component="h2">
+              {product.name}
+            </Typography>
+            <Typography variant="body1" color="textSecondary">
+              {product.description}
+            </Typography>
+            <Grid container justifyContent="space-between" alignItems="center" mt={2}>
+              <Grid item>
+                <Typography variant="body1" color="textSecondary">
+                  Quantity:
+                </Typography>
+                <Select
+                  value={quantity}
+                  onChange={handleQuantityChange}
+                  sx={{ marginLeft: '8px' }}
+                >
+                  {[...Array(10).keys()].map((quantity) => (
+                    <MenuItem key={quantity + 1} value={quantity + 1}>
+                      {quantity + 1}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </Grid>
+              <Grid item>
+                <Typography variant="h6">${product.price * quantity}</Typography>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Grid>
+      </Grid>
     </Card>
   );
-}
+};
 
 export default function Dashboard() {
     return (
@@ -37,16 +56,16 @@ export default function Dashboard() {
     <Box>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={6}>
-          <StoreCard />
+          <StoreCard product={{"name" : "Pen", "description":"Reynolds Pen","price":10 , "imageUrl":"/pen.jpg"}}/>
         </Grid>
         <Grid item xs={6}>
-            <StoreCard />
+            <StoreCard product={{"name" : "Pen", "description":"Reynolds Pen","price":10 , "imageUrl":"/pen.jpg"}}/>
         </Grid>
         <Grid item xs={6}>
-            <StoreCard />
+            <StoreCard product={{"name" : "Pen", "description":"Reynolds Pen","price":10 , "imageUrl":"/pen.jpg"}}/>
         </Grid>
         <Grid item xs={6}>
-            <StoreCard />
+            <StoreCard product={{"name" : "Pen", "description":"Reynolds Pen","price":10 , "imageUrl":"/pen.jpg"}}/>
         </Grid>
       </Grid>
     </Box>
