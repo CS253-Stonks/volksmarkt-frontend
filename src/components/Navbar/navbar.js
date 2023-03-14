@@ -25,8 +25,10 @@ function NavBar() {
   const history = useHistory();
 
   const handleLogin = () => {
-    console.log("hello" , history)
     history.push("/SignIn");
+  }
+  const handleLoginSeller = () => {
+    history.push('/seller/SignIn')
   }
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -46,6 +48,12 @@ function NavBar() {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   Dashboard
                 </Typography>
+                 <IconButton>
+            <StyledBadge badgeContent={0} color="secondary">
+              <ShoppingCartIcon />
+              </StyledBadge>
+            </IconButton>
+          <Button color="inherit" onClick={handleLogin} sx={{marginX: 2}}>Login</Button>
               </Route>
               <Route exact path="/SignIn">
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -56,14 +64,31 @@ function NavBar() {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   Sign Up
                 </Typography>
-              </Route>
-            </Switch>
-            <IconButton>
+                <IconButton>
             <StyledBadge badgeContent={0} color="secondary">
               <ShoppingCartIcon />
               </StyledBadge>
             </IconButton>
           <Button color="inherit" onClick={handleLogin} sx={{marginX: 2}}>Login</Button>
+              </Route>
+              <Route exact path='/seller/SignIn'>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  Seller Sign In
+                </Typography>
+              </Route>
+              <Route exact path='/seller/SignUp'>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  Seller Sign Up
+                </Typography>
+                <IconButton>
+            <StyledBadge badgeContent={0} color="secondary">
+              <ShoppingCartIcon />
+              </StyledBadge>
+            </IconButton>
+          <Button color="inherit" onClick={handleLoginSeller} sx={{marginX: 2}}>Login</Button>
+              </Route>
+            </Switch>
+            
         </Toolbar>
       </AppBar>
     </Box>

@@ -4,6 +4,8 @@ import SignIn from './SignIn';
 import Signup from './SignUp';
 import NavBar from './components/Navbar/navbar';
 import Dashboard from './components/Dashboard/dashboard';
+import SellerSignIn from './SellerSignIn';
+import SellerSignUp from './SellerSignUp';
 function App() {
   return (
     <>
@@ -18,6 +20,12 @@ function App() {
         </Route>
         <Route exact path='/SignUp'>
           <Signup />
+        </Route>
+        <Route exact path='/seller/SignIn'>
+          <SellerSignIn />
+        </Route>
+        <Route exact path='/seller/SignUp'>
+          <SellerSignUp />
         </Route>
     </Switch>
     </Router>
