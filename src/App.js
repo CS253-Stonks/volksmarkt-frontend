@@ -6,6 +6,7 @@ import NavBar from './components/Navbar/navbar';
 import Dashboard from './components/Dashboard/dashboard';
 import SellerSignIn from './SellerSignIn';
 import SellerSignUp from './SellerSignUp';
+import SellerDashboard from './components/Dashboard/SellerDashboard';
 function App() {
   return (
     <>
@@ -26,6 +27,9 @@ function App() {
         </Route>
         <Route exact path='/seller/SignUp'>
           <SellerSignUp />
+        </Route>
+        <Route exact path='/seller/'>
+          <SellerDashboard />
         </Route>
     </Switch>
     </Router>

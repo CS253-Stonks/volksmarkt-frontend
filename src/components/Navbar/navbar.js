@@ -87,6 +87,17 @@ function NavBar() {
             </IconButton>
           <Button color="inherit" onClick={handleLoginSeller} sx={{marginX: 2}}>Login</Button>
               </Route>
+              <Route exact path='/seller/'>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  Seller Dashboard
+                </Typography>
+                <IconButton>
+            <StyledBadge badgeContent={0} color="secondary">
+              <ShoppingCartIcon />
+              </StyledBadge>
+            </IconButton>
+          <Button color="inherit" onClick={handleLoginSeller} sx={{marginX: 2}}>Login</Button>
+              </Route>
             </Switch>
             
         </Toolbar>

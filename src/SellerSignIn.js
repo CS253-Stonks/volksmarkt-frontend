@@ -43,7 +43,7 @@ function SellerSignIn() {
     history.push('/seller/SignUp')
   }
   const returnHome = () => {
-    history.push('/')
+    history.push('/seller/')
   }
   return (
     <ThemeProvider theme={theme}>
