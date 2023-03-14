@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+
 
 export default function NavBar() {
   return (
@@ -21,9 +23,25 @@ export default function NavBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-          </Typography>
+          <Router>
+            <Switch>
+              <Route exact path="/">
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  Dashboard
+                </Typography>
+              </Route>
+              <Route exact path="/SignIn">
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  Sign In
+                </Typography>
+              </Route>
+              <Route exact path="/SignUp">
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  Sign Up
+                </Typography>
+              </Route>
+            </Switch>
+          </Router>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
