@@ -9,6 +9,17 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useHistory, withRouter } from 'react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Badge } from '@mui/material';
+import {styled} from '@mui/material/styles'
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}));
 function NavBar() {
 
   const history = useHistory();
@@ -47,7 +58,12 @@ function NavBar() {
                 </Typography>
               </Route>
             </Switch>
-          <Button color="inherit" onClick={handleLogin}>Login</Button>
+            <IconButton>
+            <StyledBadge badgeContent={0} color="secondary">
+              <ShoppingCartIcon />
+              </StyledBadge>
+            </IconButton>
+          <Button color="inherit" onClick={handleLogin} sx={{marginX: 2}}>Login</Button>
         </Toolbar>
       </AppBar>
     </Box>

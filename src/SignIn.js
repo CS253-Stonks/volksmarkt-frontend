@@ -42,6 +42,9 @@ function SignIn() {
   const goToSignUp = () => {
     history.push('/SignUp')
   }
+  const returnHome = () => {
+    history.push('/')
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -90,6 +93,7 @@ function SignIn() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={returnHome}
             >
               Sign In
             </Button>

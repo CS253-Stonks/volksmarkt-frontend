@@ -8,7 +8,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/system';
 import shopImage from "./shopImage.jpg";
-import { Propane } from '@mui/icons-material';
 
 function StoreCard(props) {
   return (
