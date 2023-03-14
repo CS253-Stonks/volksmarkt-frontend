@@ -34,7 +34,7 @@ function StoreCard(props) {
     </Grid>
     
   );
-}
+};
 
 export default function Dashboard() {
   const desc = "Just another shop"
