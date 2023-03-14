@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard/dashboard';
 import SellerSignIn from './SellerSignIn';
 import SellerSignUp from './SellerSignUp';
 import SellerDashboard from './components/Dashboard/SellerDashboard';
+import ShoppingCart from './ShoppingCart';
 function App() {
   return (
     <>
@@ -30,6 +31,9 @@ function App() {
         </Route>
         <Route exact path='/seller/'>
           <SellerDashboard />
+        </Route>
+        <Route exact path='/cart/'>
+          <ShoppingCart />
         </Route>
     </Switch>
     </Router>

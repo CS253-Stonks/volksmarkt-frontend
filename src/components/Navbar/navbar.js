@@ -30,6 +30,18 @@ function NavBar() {
   const handleLoginSeller = () => {
     history.push('/seller/SignIn')
   }
+  const movetoCart = () => {
+    history.push('/cart/');
+  }
+  const CartButton = () => {
+    return (
+      <IconButton onClick={movetoCart}>
+            <StyledBadge badgeContent={0} color="secondary">
+              <ShoppingCartIcon />
+              </StyledBadge>
+            </IconButton>
+    )
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -48,11 +60,7 @@ function NavBar() {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   Dashboard
                 </Typography>
-                 <IconButton>
-            <StyledBadge badgeContent={0} color="secondary">
-              <ShoppingCartIcon />
-              </StyledBadge>
-            </IconButton>
+                <CartButton />
           <Button color="inherit" onClick={handleLogin} sx={{marginX: 2}}>Login</Button>
               </Route>
               <Route exact path="/SignIn">
@@ -64,11 +72,7 @@ function NavBar() {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   Sign Up
                 </Typography>
-                <IconButton>
-            <StyledBadge badgeContent={0} color="secondary">
-              <ShoppingCartIcon />
-              </StyledBadge>
-            </IconButton>
+                <CartButton />
           <Button color="inherit" onClick={handleLogin} sx={{marginX: 2}}>Login</Button>
               </Route>
               <Route exact path='/seller/SignIn'>
@@ -80,22 +84,13 @@ function NavBar() {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   Seller Sign Up
                 </Typography>
-                <IconButton>
-            <StyledBadge badgeContent={0} color="secondary">
-              <ShoppingCartIcon />
-              </StyledBadge>
-            </IconButton>
+                
           <Button color="inherit" onClick={handleLoginSeller} sx={{marginX: 2}}>Login</Button>
               </Route>
               <Route exact path='/seller/'>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   Seller Dashboard
                 </Typography>
-                <IconButton>
-            <StyledBadge badgeContent={0} color="secondary">
-              <ShoppingCartIcon />
-              </StyledBadge>
-            </IconButton>
           <Button color="inherit" onClick={handleLoginSeller} sx={{marginX: 2}}>Login</Button>
               </Route>
             </Switch>
