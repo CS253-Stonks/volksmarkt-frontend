@@ -6,50 +6,47 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import { Container } from '@mui/system';
+import shopImage from "./shopImage.jpg";
+import { Propane } from '@mui/icons-material';
 
-function StoreCard() {
+function StoreCard(props) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Grid item xs = {6}>
+      <Card>
       <CardActionArea>
         <CardMedia
           component="img"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image={shopImage}
           alt="green iguana"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            {props.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {props.desc}
           </Typography>
         </CardContent>
       </CardActionArea>
     </Card>
+    </Grid>
+    
   );
 }
 
 export default function Dashboard() {
+  const desc = "Just another shop"
     return (
-    <>
-    <Box>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={6}>
-          <StoreCard />
+      <Container>
+        <Grid container spacing={5} marginTop={5}>
+          <StoreCard name="E-Shop" desc={desc}/>
+          <StoreCard name="F-Shop" desc={desc}/>
+          <StoreCard name="G-Shop" desc={desc}/>
+          <StoreCard name="H-Shop" desc={desc}/>
+
         </Grid>
-        <Grid item xs={6}>
-            <StoreCard />
-        </Grid>
-        <Grid item xs={6}>
-            <StoreCard />
-        </Grid>
-        <Grid item xs={6}>
-            <StoreCard />
-        </Grid>
-      </Grid>
-    </Box>
-    </>
+      </Container>
     )
 }
