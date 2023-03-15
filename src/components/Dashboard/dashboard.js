@@ -4,7 +4,6 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/system';
 import shopImage from "./shopImage.jpg";
@@ -13,22 +12,22 @@ const getStores = () => {
 	return [
 		{
 			"name": "E-shop",
-			"description": "This is near GH",
+			"description": "This is near Hall 3",
 			"id": 1
 		},
 		{
 			"name": "C-shop",
-			"description": "This is also near GH",
+			"description": "This is also near Hall 3",
 			"id": 2
 		},
 		{
 			"name": "Old shop",
-			"description": "Everything is near GH",
+			"description": "Everything is near Hall 3",
 			"id": 3
 		},
 		{
 			"name": "New shop",
-			"description": "GH is at the centre of the universe",
+			"description": "Hall 3 is at the centre of the universe",
 			"id": 4
 		},
 	]
