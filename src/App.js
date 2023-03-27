@@ -1,13 +1,13 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import SignIn from './SignIn';
-import Signup from './SignUp';
+import SignIn from './components/SignInSignUp/SignIn';
+import Signup from './components/SignInSignUp/SignUp';
 import NavBar from './components/Navbar/navbar';
 import Dashboard from './components/Dashboard/dashboard';
-import SellerSignIn from './SellerSignIn';
-import SellerSignUp from './SellerSignUp';
+import SellerSignIn from './components/SellerSignInSignUp/SellerSignIn';
+import SellerSignUp from './components/SellerSignInSignUp/SellerSignUp';
 import SellerDashboard from './components/Dashboard/SellerDashboard';
-import ShoppingCart from './ShoppingCart';
+import ShoppingCart from './components/CartItems/ShoppingCart';
 function App() {
   return (
     <>

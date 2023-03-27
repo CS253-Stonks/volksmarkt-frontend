@@ -4,7 +4,8 @@ import Grid from '@mui/material/Grid';
 import { Container } from '@mui/system';
 import { Paper, ButtonBase, Button } from '@mui/material';
 import { styled } from "@mui/material/styles";
-import FormDialog from "./AddItemModal.js"
+import FormDialog from "./AddItemModal"
+import FormDialog1 from "./EditItemModal"
 import { useState } from 'react';
 
 
@@ -48,15 +49,9 @@ function ComplexGrid(props) {
 							</Typography>
 						</Grid>
 						<Grid item>
-						<Button 
-							variant="outlined"  
-							sx={{
-								marginLeft: '5px',
-								height: '30px'
-							}}
-						>
-							EDIT ITEM
-						</Button>
+						<FormDialog1 itemList={props.itemList} setItemList={props.setItemList} id={props.id} sx={{
+							
+						}}/>
 						<Button 
 							variant="outlined"  
 							sx={{
@@ -123,13 +118,17 @@ export default function SellerDashboard() {
 			</Typography>
 			<Grid container direction="column">
 
-				<FormDialog itemList={itemList} setItemList={setItemList} />
+				<FormDialog itemList={itemList} setItemList={setItemList} sx={{
+					marginLeft: 50,
+				}}/>
 				{itemList.map((item) => (
 					<ComplexGrid 
 						productName = {item.productName}
 						description = {item.description}
 						price = {item.price}
 						id = {item.id}
+						itemList = {itemList}
+						setItemList = {setItemList}
 					/>
 				))}
 

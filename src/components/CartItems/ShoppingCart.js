@@ -1,6 +1,6 @@
 import { Container } from "@mui/system";
 import { Typography } from "@mui/material";
-import CartCard from "./components/CartItems/card";
+import CartCard from "./card";
 import { Grid } from "@mui/material";
 import {useState} from 'react';
 
@@ -62,8 +62,9 @@ const ShoppingCart = () => {
 						id = {card.id}
 						list = {list}
 						setList = {setList}
+						key = {card.id}
 					/>
-		  		))}
+				))}
 			</Grid>
 		</Container>
 	);

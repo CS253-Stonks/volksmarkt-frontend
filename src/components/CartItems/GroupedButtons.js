@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { useState } from "react";
 
-function GroupedButtons(props) {
+export default function GroupedButtons(props) {
 
     const {removeFromList, quantity, price, setTotalPrice} = props;
 
@@ -31,5 +31,3 @@ function GroupedButtons(props) {
     );
     
 }
-
-export default GroupedButtons;
