@@ -8,6 +8,8 @@ import SellerSignIn from './components/SellerSignInSignUp/SellerSignIn';
 import SellerSignUp from './components/SellerSignInSignUp/SellerSignUp';
 import SellerDashboard from './components/Dashboard/SellerDashboard';
 import ShoppingCart from './components/CartItems/ShoppingCart';
+import Shop from './components/Shop/Shop';
+
 function App() {
   return (
     <>
@@ -34,6 +36,9 @@ function App() {
         </Route>
         <Route exact path='/cart/'>
           <ShoppingCart />
+        </Route>
+        <Route exact path='/shop/'>
+          <Shop />
         </Route>
     </Switch>
     </Router>

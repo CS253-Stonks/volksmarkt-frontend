@@ -7,37 +7,49 @@ import { CardActionArea } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/system';
 import shopImage from "./shopImage.jpg";
+import { useHistory} from 'react-router-dom';
+
 
 const getStores = () => {
 	return [
 		{
 			"name": "E-shop",
-			"description": "This is near Hall 3",
+			"description": "This is near GH",
 			"id": 1
 		},
 		{
 			"name": "C-shop",
-			"description": "This is also near Hall 3",
+			"description": "This is also near GH",
 			"id": 2
 		},
 		{
 			"name": "Old shop",
-			"description": "Everything is near Hall 3",
+			"description": "Everything is near GH",
 			"id": 3
 		},
 		{
 			"name": "New shop",
-			"description": "Hall 3 is at the centre of the universe",
+			"description": "GH is at the centre of the universe",
 			"id": 4
 		},
 	]
 }
 
+
+
 function StoreCard(props) {
+
+	const history = useHistory();
+
+	const linkToShop = () =>{
+		history.push('/shop')
+	}
+
+
 	return (
 		<Grid item xs={6}>
 			<Card>
-				<CardActionArea>
+				<CardActionArea onClick={linkToShop}>
 					<CardMedia
 						component="img"
 						height="140"
