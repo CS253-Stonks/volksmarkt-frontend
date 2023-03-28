@@ -6,31 +6,118 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import GroupedButton from './GroupedButton';
+import { useState } from "react";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const cards = [
+	{
+		name: "Product 1",
+		description: "Description 1",
+		quantity: 0,
+		key: 1,
+	},
+	{
+		name: "Product 2",
+		description: "Description 2",
+		quantity: 0,
+		key: 2,
+	},
+	{
+		name: "Product 3",
+		description: "Description 3",
+		quantity: 0,
+		key: 3,
+	},
+	{
+		name: "Product 4",
+		description: "Description 4",
+		quantity: 0,
+		key: 4,
+	},
+	{
+		name: "Product 5",
+		description: "Description 5",
+		quantity: 0,
+		key: 5,
+	},
+	{
+		name: "Product 6",
+		description: "Description 6",
+		quantity: 0,
+		key: 6,
+	},
+	{
+		name: "Product 7",
+		description: "Description 7",
+		quantity: 0,
+		key: 7,
+	},
+	{
+		name: "Product 8",
+		description: "Description 8",
+		quantity: 0,
+		key: 8,
+	},
+];
 
 const theme = createTheme();
 
-export default function Album() {
+
+const ProductCard = (props) => {
+
+	const productName = props.name;
+	const productDescription = props.description;
+	const [productQuantity, setProductQuantity] = useState(props.quantity);
+	const productKey = props.key;
+
+	const resetQuantity = () => {
+		alert(productQuantity + ' Items added');
+		setProductQuantity(0);
+	}
+
+	return (
+		<Grid item key={productKey} xs={12} sm={6} md={3}>
+			<Card
+				sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+			>
+				<CardMedia
+					component="img"
+					image="https://source.unsplash.com/random"
+					alt="random"
+				/>
+				<CardContent sx={{ flexGrow: 1 }}>
+					<Typography gutterBottom variant="h5" component="h2">
+						{productName}
+					</Typography>
+					<Typography>
+						{productDescription}
+					</Typography>
+				</CardContent>
+				<CardActions>
+					<GroupedButton 
+						sx={{
+							marginLeft: '10px',
+						}}
+						quantity={productQuantity}
+						setQuantity={setProductQuantity}
+					/>
+					<Button size="small" sx={{
+						marginLeft: '13px',
+					}} variant="contained" onClick={resetQuantity}>ADD TO CART</Button>
+				</CardActions>
+			</Card>
+		</Grid>
+	)
+}
+
+
+export default function Shop() {
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -44,58 +131,22 @@ export default function Album() {
           }}
         >
         </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
+        <Container sx={{ 
+						py: 3, 
+					}} maxWidth="lg">
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                >
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      // 16:9
-                      pt: '56.25%',
-                    }}
-                    image="https://source.unsplash.com/random"
-                    alt="random"
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
-                  </CardActions>
-                </Card>
-              </Grid>
+							<ProductCard 
+								name = {card.name}
+								description = {card.description}
+								quantity = {card.quantity}
+								key = {card.key}
+							/>
             ))}
           </Grid>
         </Container>
       </main>
-      {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
-      </Box>
-      {/* End footer */}
     </ThemeProvider>
   );
 }

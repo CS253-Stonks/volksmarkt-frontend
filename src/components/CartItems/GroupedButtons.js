@@ -11,11 +11,13 @@ export default function GroupedButtons(props) {
 
     const handleIncrement = () => {
         setState(state => ({ counter: state.counter + 1 }));
-        setTotalPrice(price * (state.counter+1));
+        if(setTotalPrice)    setTotalPrice(price * (state.counter+1));
     };
     
     const handleDecrement = () => {
-        setState(state => ({ counter: state.counter - 1 }));
+        if(state.counter >= 1){
+            setState(state => ({ counter: state.counter - 1 }));
+        }
         if(state.counter === 1){
             removeFromList();
         }
@@ -23,9 +25,9 @@ export default function GroupedButtons(props) {
     };
 
     return (
-        <ButtonGroup size="small" aria-label="small outlined button group">
+        <ButtonGroup size="small" aria-label="outlined primary button group" variant="outlined">
             <Button onClick={handleDecrement}>-</Button>
-            <Button disabled>{state.counter}</Button>
+            <Button>{state.counter}</Button>
             <Button onClick={handleIncrement}>+</Button>
         </ButtonGroup>
     );

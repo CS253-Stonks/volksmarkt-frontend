@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import GroupedButtons from './GroupedButtons';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 
@@ -29,7 +30,7 @@ export default function CartCard(props) {
         <Card sx={{ 
             display: 'flex',
             height: '180px', 
-            width: '50%',
+            width: '60%',
             flexDirection: 'row',
             borderRadius: 0, 
             boxShadow: '3px 3px 5px rgba(0, 0, 0, 0.25)',
@@ -62,7 +63,7 @@ export default function CartCard(props) {
                         <Button variant="outlined" onClick={removeItemFromList} sx={{
                             marginLeft: '20px',
                             height: '30px'
-                        }}>
+                        }} startIcon={<DeleteIcon />}>
                             REMOVE ITEM
                         </Button>
                     </div>
@@ -72,7 +73,7 @@ export default function CartCard(props) {
                 component="img"
                 sx={{ 
                     height: '100%',
-                    width: '35%',
+                    width: '30%',
                     alignSelf: 'flex-end',
                     marginLeft: 'auto',
                 }}
