@@ -9,8 +9,9 @@ import SellerSignUp from './components/SellerSignInSignUp/SellerSignUp';
 import SellerDashboard from './components/Dashboard/SellerDashboard';
 import ShoppingCart from './components/CartItems/ShoppingCart';
 import Shop from './components/Shop/Shop';
-import Forgot_password from './components/SignInSignUp/Forgot_password';
-import Seller_forgot_password from './components/SellerSignInSignUp/Seller_forgot_password';
+import ForgotPassword from './components/SignInSignUp/ForgotPassword';
+import SellerForgotPassword from './components/SellerSignInSignUp/SellerForgotPassword';
+import MyOrders from './components/Orders/MyOrders';
 
 function App() {
   return (
@@ -27,8 +28,8 @@ function App() {
         <Route exact path='/SignUp'>
           <Signup />
         </Route>
-        <Route exact path='/forgot_password'>
-          <Forgot_password />
+        <Route exact path='/forgotPassword'>
+          <ForgotPassword />
         </Route>
         <Route exact path='/seller/'>
           <SellerDashboard />
@@ -39,14 +40,17 @@ function App() {
         <Route exact path='/seller/SignUp'>
           <SellerSignUp />
         </Route>
-        <Route exact path='/seller/Seller_forgot_password'>
-          <Seller_forgot_password />
+        <Route exact path='/seller/SellerForgotPassword'>
+          <SellerForgotPassword />
         </Route>
         <Route exact path='/cart/'>
           <ShoppingCart />
         </Route>
         <Route exact path='/shop/'>
           <Shop />
+        </Route>
+        <Route exact path='/MyOrders/'>
+          <MyOrders />
         </Route>
     </Switch>
     </Router>

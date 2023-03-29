@@ -12,7 +12,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import GroupedButton from './GroupedButton';
 import { useState } from "react";
-
+import ProductModal from './productModal';
 
 const cards = [
 	{
@@ -73,18 +73,28 @@ const ProductCard = (props) => {
 	const productName = props.name;
 	const productDescription = props.description;
 	const [productQuantity, setProductQuantity] = useState(props.quantity);
-	const productKey = props.key;
+	const productKey = props.id;
 
 	const resetQuantity = () => {
+		if (!productQuantity) return;
 		alert(productQuantity + ' Items added');
 		setProductQuantity(0);
 	}
 
+
+	const productModal = () =>{
+		return (
+			<ProductModal />
+		)
+	}
+
+
 	return (
-		<Grid item key={productKey} xs={12} sm={6} md={3}>
+		<Grid item id={productKey} xs={12} sm={6} md={3}>
 			<Card
+				onClick = {productModal}
 				sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-			>
+			>	
 				<CardMedia
 					component="img"
 					image="https://source.unsplash.com/random"
@@ -99,7 +109,7 @@ const ProductCard = (props) => {
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<GroupedButton 
+					<GroupedButton
 						sx={{
 							marginLeft: '10px',
 						}}
@@ -118,35 +128,35 @@ const ProductCard = (props) => {
 
 export default function Shop() {
 
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <main>
-        {/* Hero unit */}
-        <Box
-          sx={{
-            bgcolor: 'background.paper',
-            pt: 8,
-            pb: 6,
-          }}
-        >
-        </Box>
-        <Container sx={{ 
-						py: 3, 
-					}} maxWidth="lg">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-							<ProductCard 
-								name = {card.name}
-								description = {card.description}
-								quantity = {card.quantity}
-								key = {card.key}
+	return (
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<main>
+				{/* Hero unit */}
+				<Box
+					sx={{
+						bgcolor: 'background.paper',
+						pt: 8,
+						pb: 6,
+					}}
+				>
+				</Box>
+				<Container sx={{
+					py: 3,
+				}} maxWidth="lg">
+					{/* End hero unit */}
+					<Grid container spacing={4}>
+						{cards.map((card) => (
+							<ProductCard
+								name={card.name}
+								description={card.description}
+								quantity={card.quantity}
+								key={card.key}
 							/>
-            ))}
-          </Grid>
-        </Container>
-      </main>
-    </ThemeProvider>
-  );
+						))}
+					</Grid>
+				</Container>
+			</main>
+		</ThemeProvider>
+	);
 }

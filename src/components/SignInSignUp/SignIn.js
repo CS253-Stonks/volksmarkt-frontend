@@ -106,7 +106,10 @@ function SignIn() {
                   {"Forgot Password?"}
                 </Link>
               </Grid>
-              <Grid item>
+              <Grid item sx={{
+                position:"relative",
+                left:80,
+              }}>
                 <Link variant="body2" onClick={goToSignUp} href=''>
                   {"Don't have an account? Sign Up"}
                 </Link>

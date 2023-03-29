@@ -29,7 +29,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-function Forgot_password() {
+function SellerForgotPassword() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -40,7 +40,7 @@ function Forgot_password() {
   };
   const history = useHistory();
   const moveToSignIn = () => {
-    history.push('/SignIn');
+    history.push('/Seller/SignIn');
   }
   return (
     <ThemeProvider theme={theme}>
@@ -62,8 +62,7 @@ function Forgot_password() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              
-              <Grid item xs={12}>
+            <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -84,7 +83,7 @@ function Forgot_password() {
                 />
               </Grid>
               <Grid item xs={12}>
-                *Password reset link will be sent to the registerded email id
+              *Password reset link will be sent to the registerded email id
               </Grid>
             </Grid>
             <Button
@@ -96,6 +95,7 @@ function Forgot_password() {
             >
               Reset Password
             </Button>
+            
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
@@ -104,4 +104,4 @@ function Forgot_password() {
   );
 }
 
-export default withRouter(Forgot_password);
+export default withRouter(SellerForgotPassword);

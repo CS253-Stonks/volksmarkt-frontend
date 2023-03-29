@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -29,7 +27,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-function Seller_forgot_password() {
+function ForgotPassword() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -40,7 +38,7 @@ function Seller_forgot_password() {
   };
   const history = useHistory();
   const moveToSignIn = () => {
-    history.push('/Seller/SignIn');
+    history.push('/SignIn');
   }
   return (
     <ThemeProvider theme={theme}>
@@ -62,7 +60,8 @@ function Seller_forgot_password() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-            <Grid item xs={12}>
+              
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -83,7 +82,7 @@ function Seller_forgot_password() {
                 />
               </Grid>
               <Grid item xs={12}>
-              *Password reset link will be sent to the registerded email id
+                *Password reset link will be sent to the registerded email id
               </Grid>
             </Grid>
             <Button
@@ -95,7 +94,6 @@ function Seller_forgot_password() {
             >
               Reset Password
             </Button>
-            
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
@@ -104,4 +102,4 @@ function Seller_forgot_password() {
   );
 }
 
-export default withRouter(Seller_forgot_password);
+export default withRouter(ForgotPassword);
