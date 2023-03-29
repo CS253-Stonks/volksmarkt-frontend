@@ -29,7 +29,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-function SellerSignIn() {
+function Seller_forgot_password() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -39,15 +39,8 @@ function SellerSignIn() {
     });
   };
   const history = useHistory();
-  const goToSignUp = () => {
-    history.push('/seller/SignUp')
-  }
-  const goToforgot_password = () => {
-    history.push('/Seller/Seller_forgot_password')
-  }
-
-  const returnHome = () => {
-    history.push('/seller/')
+  const moveToSignIn = () => {
+    history.push('/Seller/SignIn');
   }
   return (
     <ThemeProvider theme={theme}>
@@ -65,60 +58,50 @@ function SellerSignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Seller Sign in
+            Forgot Password
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="EMAIL"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="User"
+                  label="USER ID"
+                  name="User"
+                  autoComplete="User"
+                />
+              </Grid>
+              <Grid item xs={12}>
+              *Password reset link will be sent to the registerded email id
+              </Grid>
+            </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={returnHome}
+              onClick={moveToSignIn}
             >
-              Sign In
+              Reset Password
             </Button>
-            <Grid container>
-              <Grid item >
-              <Link variant="body2" onClick={goToforgot_password} href=''>
-                  {"Forgot Password?"}
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link variant="body2" onClick={goToSignUp} href=''>
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
+            
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );
 }
 
-export default withRouter(SellerSignIn);
+export default withRouter(Seller_forgot_password);

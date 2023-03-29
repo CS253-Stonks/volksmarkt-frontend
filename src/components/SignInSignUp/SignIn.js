@@ -19,7 +19,7 @@ function Copyright(props) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        VolksMarkt
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -41,6 +41,9 @@ function SignIn() {
   const history = useHistory();
   const goToSignUp = () => {
     history.push('/SignUp')
+  }
+  const goToforgot_password = () => {
+    history.push('/forgot_password')
   }
   const returnHome = () => {
     history.push('/')
@@ -98,9 +101,9 @@ function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
+              <Grid item >
+              <Link variant="body2" onClick={goToforgot_password} href=''>
+                  {"Forgot Password?"}
                 </Link>
               </Grid>
               <Grid item>

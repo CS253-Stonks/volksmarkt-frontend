@@ -9,6 +9,8 @@ import SellerSignUp from './components/SellerSignInSignUp/SellerSignUp';
 import SellerDashboard from './components/Dashboard/SellerDashboard';
 import ShoppingCart from './components/CartItems/ShoppingCart';
 import Shop from './components/Shop/Shop';
+import Forgot_password from './components/SignInSignUp/Forgot_password';
+import Seller_forgot_password from './components/SellerSignInSignUp/Seller_forgot_password';
 
 function App() {
   return (
@@ -25,14 +27,20 @@ function App() {
         <Route exact path='/SignUp'>
           <Signup />
         </Route>
+        <Route exact path='/forgot_password'>
+          <Forgot_password />
+        </Route>
+        <Route exact path='/seller/'>
+          <SellerDashboard />
+        </Route>
         <Route exact path='/seller/SignIn'>
           <SellerSignIn />
         </Route>
         <Route exact path='/seller/SignUp'>
           <SellerSignUp />
         </Route>
-        <Route exact path='/seller/'>
-          <SellerDashboard />
+        <Route exact path='/seller/Seller_forgot_password'>
+          <Seller_forgot_password />
         </Route>
         <Route exact path='/cart/'>
           <ShoppingCart />
