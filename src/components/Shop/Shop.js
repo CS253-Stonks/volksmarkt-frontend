@@ -11,60 +11,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import GroupedButton from './GroupedButton';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // import ProductModal from './productModal';
-
-const cards = [
-	{
-		name: "Product 1",
-		description: "Description 1",
-		quantity: 0,
-		key: 1,
-	},
-	{
-		name: "Product 2",
-		description: "Description 2",
-		quantity: 0,
-		key: 2,
-	},
-	{
-		name: "Product 3",
-		description: "Description 3",
-		quantity: 0,
-		key: 3,
-	},
-	{
-		name: "Product 4",
-		description: "Description 4",
-		quantity: 0,
-		key: 4,
-	},
-	{
-		name: "Product 5",
-		description: "Description 5",
-		quantity: 0,
-		key: 5,
-	},
-	{
-		name: "Product 6",
-		description: "Description 6",
-		quantity: 0,
-		key: 6,
-	},
-	{
-		name: "Product 7",
-		description: "Description 7",
-		quantity: 0,
-		key: 7,
-	},
-	{
-		name: "Product 8",
-		description: "Description 8",
-		quantity: 0,
-		key: 8,
-	},
-];
 
 const theme = createTheme();
 
@@ -78,7 +27,7 @@ const ProductCard = (props) => {
 
 	const resetQuantity = () => {
 		if (!productQuantity) return;
-		alert(productQuantity + ' Items added');
+		console.log(productQuantity + ' Items added');
 		setProductQuantity(0);
 	}
 
@@ -129,6 +78,72 @@ const ProductCard = (props) => {
 
 export default function Shop() {
 
+
+		
+	const [cards, setCards] = useState([
+		{
+			name: "Product 1",
+			description: "Description 1",
+			quantity: 0,
+			key: 1,
+		},
+		{
+			name: "Product 2",
+			description: "Description 2",
+			quantity: 0,
+			key: 2,
+		},
+		{
+			name: "Product 3",
+			description: "Description 3",
+			quantity: 0,
+			key: 3,
+		},
+		{
+			name: "Product 4",
+			description: "Description 4",
+			quantity: 0,
+			key: 4,
+		},
+		{
+			name: "Product 5",
+			description: "Description 5",
+			quantity: 0,
+			key: 5,
+		},
+		{
+			name: "Product 6",
+			description: "Description 6",
+			quantity: 0,
+			key: 6,
+		},
+		{
+			name: "Product 7",
+			description: "Description 7",
+			quantity: 0,
+			key: 7,
+		},
+		{
+			name: "Product 8",
+			description: "Description 8",
+			quantity: 0,
+			key: 8,
+		},
+	]);
+
+
+
+	useEffect(() => {
+		fetch('http://127.0.0.1:8000/Products/')
+		.then(res => {
+			return res.json();
+		})
+		.then(data => {
+			setCards(data);
+		})
+	}, []);
+
+
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
@@ -152,7 +167,7 @@ export default function Shop() {
 								name={card.name}
 								description={card.description}
 								quantity={card.quantity}
-								key={card.key}
+								key={card.id}
 							/>
 						))}
 					</Grid>

@@ -13,6 +13,9 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import RatingModal from './ratingModal';
+import { useState } from 'react';
+
 
 const ColorChips = (props) => {
 
@@ -109,6 +112,7 @@ const OrderCard = (props) => {
     const orderDescription = props.description;
     const orderKey = props.id;
     const orderStatus = props.status;
+    const [rating, setRating] = useState(0);
 
     return (
         <Grid item id={orderKey} xs={12}>
@@ -144,9 +148,7 @@ const OrderCard = (props) => {
                     <CardActions sx={{
                         marginLeft: '40px',
                     }}>
-                        <Button size="medium" sx={{
-                            height: '30px'
-                        }} variant="contained">RATE THE PRODUCT</Button>
+                        <RatingModal rating={rating} setRating={setRating}/>
                         <Button size="medium" sx={{
                             height: '30px'
                         }} variant="contained">BUY AGAIN</Button>
