@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import { Container } from '@mui/system';
 import shopImage from "./shopImage.jpg";
 import { useHistory} from 'react-router-dom';
-
+import { useState, useEffect } from 'react';
 
 const getStores = () => {
 	return [
@@ -44,8 +44,7 @@ function StoreCard(props) {
 	const linkToShop = () =>{
 		history.push('/shop')
 	}
-
-
+	
 	return (
 		<Grid item xs={6}>
 			<Card>
@@ -72,10 +71,27 @@ function StoreCard(props) {
 };
 
 export default function Dashboard() {
+	const [stores, setStores] = useState(null);
+	
+	useEffect(() => {
+		fetch('http://127.0.0.1:8000/Stores/').then(res => {
+			return res.json();
+		}).then(data => {
+			// console.log(data);
+			setStores(data);
+		}
+		)
+	}, [])
+
+	
 	return (
+		
 		<Container>
 			<Grid container spacing={5} marginTop={5}>
-				{getStores().map((store) => (
+
+				{stores?stores.map((store) => (
+					<StoreCard name={store.name} desc={store.address} key={store.id}/>
+				)):getStores().map((store) => (
 					<StoreCard name={store.name} desc={store.description} key={store.id}/>
 		  		))}
 			</Grid>
