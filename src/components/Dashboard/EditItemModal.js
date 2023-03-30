@@ -1,47 +1,51 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import * as React from 'react' 
+import Button from '@mui/material/Button' 
+import TextField from '@mui/material/TextField' 
+import Dialog from '@mui/material/Dialog' 
+import DialogActions from '@mui/material/DialogActions' 
+import DialogContent from '@mui/material/DialogContent' 
+import DialogContentText from '@mui/material/DialogContentText' 
+import DialogTitle from '@mui/material/DialogTitle' 
+import { useState } from 'react' 
+import axios from 'axios' 
+
 
 export default function FormDialog1(props) {
 
-    const {itemList, setItemList, id} = props;
-    const [open, setOpen] = React.useState(false);
+    const product = props.item 
+    const [open, setOpen] = useState(false) 
+    
+    const [productName, setProductName] = useState('') 
+    const [description, setDescription] = useState('') 
+    const [price, setPrice] = useState('') 
+    const [quantity, setQuantity] = useState('') 
 
     const handleClickOpen = () => {
-        setOpen(true);
-    };
+        console.log(product)    
+        setOpen(true) 
+    } 
 
     const handleClose = () => {
-        setOpen(false);
-    };
+        setOpen(false) 
+    } 
 
-    const editItem = () => {
-        handleClose();
-        let newList = itemList.slice();
-        // newList.push(
-        //     {
-        //         "productName": "X",
-        //         "description": "This is near GH",
-        //         "price": 0,
-        //         "id": 0,
-        //     }
-        // )
+    const submitHandler = (e) => {
+        e.preventDefault() 
+        const Product={
+            id: product.id,
+            name: productName,
+            description: description,
+            price: price,
+            quantity: quantity,
+            store: 1
+        }
+        axios.put(`http://127.0.0.1:8000/Products/${Product.id}/`, Product)
+    }
 
-        setItemList(newList.map((item) => {
-            if(id === item.id){
-                
-            }
-            return newList
-        }))
-
-        setItemList(newList);
-        console.log(itemList);
-    };
+    const editItem = (e) => {
+        submitHandler(e)
+        handleClose() 
+    } 
 
     return (
         <div>
@@ -63,8 +67,10 @@ export default function FormDialog1(props) {
                     </DialogContentText>
                     <TextField
                         autoFocus
+                        value={productName}
+                        onChange={(e) => setProductName(e.target.value)}
                         margin="dense"
-                        id="name"
+                        id="productName"
                         label="Product Name"
                         type="text"
                         fullWidth
@@ -72,8 +78,10 @@ export default function FormDialog1(props) {
                     />
                     <TextField
                         autoFocus
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                         margin="dense"
-                        id="desc"
+                        id="description"
                         label="Description"
                         type="text"
                         fullWidth
@@ -81,9 +89,22 @@ export default function FormDialog1(props) {
                     />
                     <TextField
                         autoFocus
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
                         margin="dense"
                         id="price"
                         label="Price"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        autoFocus
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
+                        margin="dense"
+                        id="quantity"
+                        label="Quantity"
                         type="text"
                         fullWidth
                         variant="standard"
@@ -95,5 +116,5 @@ export default function FormDialog1(props) {
                 </DialogActions>
             </Dialog>
         </div>
-    );
+    ) 
 }

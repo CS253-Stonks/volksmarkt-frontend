@@ -6,12 +6,12 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useHistory, withRouter } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Badge } from '@mui/material';
-import {styled} from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import MailIcon from '@mui/icons-material/Mail';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -21,14 +21,13 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useLocation } from 'react-router-dom';
-import { CategoryRounded, Home, ListAltRounded, Logout, SettingsApplicationsRounded} from '@mui/icons-material';
 const StyledBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    right: -3,
-    top: 13,
-    border: `2px solid ${theme.palette.background.paper}`,
-    padding: '0 4px',
-  },
+	'& .MuiBadge-badge': {
+		right: -3,
+		top: 13,
+		border: `2px solid ${theme.palette.background.paper}`,
+		padding: '0 4px',
+	},
 }));
 
 
@@ -56,49 +55,12 @@ function NavBar() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      
       <List>
-        {['Home'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton onClick={movetoHome}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <Home /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <List>
-        {['My Orders'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton onClick={movetoMyOrders}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <ListAltRounded /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <List>
-        {['Catalogue'].map((text, index) => (
+        {['Home', 'My Orders', 'Catalogue', 'Cart'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <CategoryRounded /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <List>
-        {['Cart'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton onClick={movetoCart}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <ShoppingCartIcon /> : <MailIcon />}
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -107,23 +69,11 @@ function NavBar() {
       </List>
       <Divider />
       <List>
-        {['Settings'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <SettingsApplicationsRounded /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <List>
         {['Log Out'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <Logout /> : <MailIcon />}
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -134,7 +84,7 @@ function NavBar() {
   );
   
 
-  const history = useHistory();
+	const history = useHistory();
 
   const handleLogin = () => {
     history.push("/SignIn");
@@ -143,17 +93,8 @@ function NavBar() {
     history.push('/seller/SignIn')
   }
   const movetoCart = () => {
-    history.push('/cart');
+    history.push('/cart/');
   }
-  const movetoHome = () => {
-    history.push('/');
-  }
-
-  const movetoMyOrders = () => {
-    history.push('/MyOrders/');
-  }
-
-
   const CartButton = () => {
     return (
       <IconButton onClick={movetoCart}>

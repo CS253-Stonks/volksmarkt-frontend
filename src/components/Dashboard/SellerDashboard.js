@@ -6,8 +6,7 @@ import { Paper, ButtonBase, Button } from '@mui/material';
 import { styled } from "@mui/material/styles";
 import FormDialog from "./AddItemModal"
 import FormDialog1 from "./EditItemModal"
-import { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 
 const Img = styled('img')({
@@ -19,6 +18,8 @@ const Img = styled('img')({
 
 
 function ComplexGrid(props) {
+
+	const product = props.product;
 
 	return (
 		<Paper
@@ -43,16 +44,14 @@ function ComplexGrid(props) {
 					<Grid item xs container direction="column" spacing={2}>
 						<Grid item xs>
 							<Typography gutterBottom variant="h6" component="div">
-								{props.productName}
+								{product.name}
 							</Typography>
 							<Typography variant="body2" gutterBottom>
-								{props.description}
+								{product.description}
 							</Typography>
 						</Grid>
 						<Grid item>
-						<FormDialog1 itemList={props.itemList} setItemList={props.setItemList} id={props.id} sx={{
-							
-						}}/>
+						<FormDialog1 item={product}/>
 						<Button 
 							variant="outlined"  
 							sx={{
@@ -66,7 +65,7 @@ function ComplexGrid(props) {
 					</Grid>
 					<Grid item marginLeft={4}>
 						<Typography variant="subtitle1" component="div">
-							{props.price}
+							{product.price}
 						</Typography>
 					</Grid>
 				</Grid>
@@ -77,33 +76,19 @@ function ComplexGrid(props) {
 
 function SellerDashboard() {
 
-	const foo = [
-		{
-			"productName": "A",
-			"description": "This is near Hall 3",
-			"price": 100,
-			"id": 1,
-		},
-		{
-			"productName": "B",
-			"description": "This is near Hall 3",
-			"price": 200,
-			"id": 2,
-		},
-		{
-			"productName": "C",
-			"description": "This is near Hall 3",
-			"price": 300,
-			"id": 3,
-		},
-		{
-			"productName": "D",
-			"description": "This is near Hall 3",
-			"price": 400,
-			"id": 4,
-		},
-	];
+	const foo = [];
 	const [itemList, setItemList] = useState(foo);
+
+	useEffect(() => {
+		fetch('http://127.0.0.1:8000/Products/')
+		.then(res => {
+			return res.json();
+		})
+		.then(data => {
+			setItemList(data);
+		})
+	}, []);
+
 
 	return (
 		<Container>
@@ -119,17 +104,13 @@ function SellerDashboard() {
 			</Typography>
 			<Grid container direction="column">
 
-				<FormDialog itemList={itemList} setItemList={setItemList} sx={{
+				<FormDialog sx={{
 					marginLeft: 50,
 				}}/>
 				{itemList.map((item) => (
 					<ComplexGrid 
-						productName = {item.productName}
-						description = {item.description}
-						price = {item.price}
-						id = {item.id}
-						itemList = {itemList}
-						setItemList = {setItemList}
+						key = {item.id}
+						product = {item}
 					/>
 				))}
 
