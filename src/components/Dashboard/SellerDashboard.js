@@ -7,6 +7,7 @@ import { styled } from "@mui/material/styles";
 import FormDialog from "./AddItemModal"
 import FormDialog1 from "./EditItemModal"
 import { useState, useEffect } from 'react';
+import axios from 'axios'
 
 
 const Img = styled('img')({
@@ -20,6 +21,10 @@ const Img = styled('img')({
 function ComplexGrid(props) {
 
 	const product = props.product;
+
+	const deleteItem = () => {
+		axios.delete(`http://127.0.0.1:8000/Products/${product.id}/`)
+	}
 
 	return (
 		<Paper
@@ -58,6 +63,7 @@ function ComplexGrid(props) {
                             	marginLeft: '5px',
                             	height: '30px'
                         	}}
+							onClick={deleteItem}
 						>
                             REMOVE ITEM
                         </Button>
@@ -73,6 +79,7 @@ function ComplexGrid(props) {
 		</Paper>
 	);
 }
+
 
 function SellerDashboard() {
 
