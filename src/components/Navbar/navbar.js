@@ -12,6 +12,16 @@ import { useHistory, withRouter } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Badge } from '@mui/material';
 import {styled} from '@mui/material/styles'
+import MailIcon from '@mui/icons-material/Mail';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import { useLocation } from 'react-router-dom';
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
     right: -3,
@@ -20,7 +30,61 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     padding: '0 4px',
   },
 }));
+
+
+
+
 function NavBar() {
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+  
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+  
+    setState({ ...state, [anchor]: open });
+  };
+  
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        {['Home', 'My Orders', 'Catalogue', 'Cart'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['Log Out'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+  
 
   const history = useHistory();
 
@@ -42,6 +106,10 @@ function NavBar() {
             </IconButton>
     )
   }
+  const anchor = 'left';
+  let location = useLocation();
+  const heading1 = location.pathname.substring(1);
+  const heading = heading1.charAt(0).toUpperCase() + heading1.slice(1);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -52,9 +120,17 @@ function NavBar() {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={toggleDrawer(anchor, true)}
           >
             <MenuIcon />
           </IconButton>
+          <Drawer
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
+          >
+            {list(anchor)}
+          </Drawer>
             <Switch>
               <Route exact path="/">
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -92,6 +168,9 @@ function NavBar() {
                   Seller Dashboard
                 </Typography>
           <Button color="inherit" onClick={handleLoginSeller} sx={{marginX: 2}}>Login</Button>
+              </Route>
+              <Route path='/'>
+                {heading}
               </Route>
             </Switch>
             

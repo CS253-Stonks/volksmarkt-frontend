@@ -12,7 +12,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import GroupedButton from './GroupedButton';
 import { useState } from "react";
-import ProductModal from './productModal';
+
+// import ProductModal from './productModal';
 
 const cards = [
 	{
@@ -82,17 +83,17 @@ const ProductCard = (props) => {
 	}
 
 
-	const productModal = () =>{
-		return (
-			<ProductModal />
-		)
-	}
+	// const productModal = () =>{
+	// 	return (
+	// 		<ProductModal />
+	// 	)
+	// }
 
 
 	return (
 		<Grid item id={productKey} xs={12} sm={6} md={3}>
 			<Card
-				onClick = {productModal}
+				// onClick = {productModal}
 				sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
 			>	
 				<CardMedia
