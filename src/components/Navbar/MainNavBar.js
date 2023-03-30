@@ -33,7 +33,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 
 
-function NavBar() {
+
+function MianNavBar() {
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -236,4 +237,4 @@ function NavBar() {
     </Box>
   );
 }
-export default withRouter(NavBar)
+export default withRouter(MianNavBar)

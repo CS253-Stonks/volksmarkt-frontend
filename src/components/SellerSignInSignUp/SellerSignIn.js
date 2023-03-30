@@ -43,7 +43,7 @@ function SellerSignIn() {
     history.push('/seller/SignUp')
   }
   const goToforgot_password = () => {
-    history.push('/Seller/Seller_forgot_password')
+    history.push('/Seller/SellerForgotPassword')
   }
 
   const returnHome = () => {

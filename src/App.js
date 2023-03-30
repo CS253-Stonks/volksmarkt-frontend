@@ -12,6 +12,7 @@ import Shop from './components/Shop/Shop';
 import ForgotPassword from './components/SignInSignUp/ForgotPassword';
 import SellerForgotPassword from './components/SellerSignInSignUp/SellerForgotPassword';
 import MyOrders from './components/Orders/MyOrders';
+import UserDashboard from './components/Dashboard/UserDashboard';
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
       <Switch>
         <Route exact path='/'>
         <Dashboard />
+        </Route>
+        <Route exact path='/UserDashboard'>
+        <UserDashboard />
         </Route>
         <Route exact path='/SignIn'>
           <SignIn />
@@ -39,6 +43,9 @@ function App() {
         </Route>
         <Route exact path='/seller/SignUp'>
           <SellerSignUp />
+        </Route>
+        <Route exact path='/cart'>
+          <ShoppingCart />
         </Route>
         <Route exact path='/seller/SellerForgotPassword'>
           <SellerForgotPassword />

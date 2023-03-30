@@ -43,11 +43,15 @@ function SignIn() {
     history.push('/SignUp')
   }
   const goToforgot_password = () => {
-    history.push('/forgot_password')
+    history.push('/forgotPassword')
   }
   const returnHome = () => {
     history.push('/')
   }
+  const goToUserDashboard = () => {
+    history.push('/UserDashboard')
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -96,7 +100,7 @@ function SignIn() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={returnHome}
+              onClick={goToUserDashboard}
             >
               Sign In
             </Button>

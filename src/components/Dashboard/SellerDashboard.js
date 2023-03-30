@@ -7,6 +7,7 @@ import { styled } from "@mui/material/styles";
 import FormDialog from "./AddItemModal"
 import FormDialog1 from "./EditItemModal"
 import { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 
 
 const Img = styled('img')({
@@ -74,7 +75,7 @@ function ComplexGrid(props) {
 	);
 }
 
-export default function SellerDashboard() {
+function SellerDashboard() {
 
 	const foo = [
 		{
@@ -136,3 +137,5 @@ export default function SellerDashboard() {
 		</Container>
 	)
 }
+
+export default withRouter(SellerDashboard);

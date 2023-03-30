@@ -7,7 +7,7 @@ import { CardActionArea } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/system';
 import shopImage from "./shopImage.jpg";
-import { useHistory} from 'react-router-dom';
+import { useHistory, withRouter} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import NavBar from '../Navbar/navbar';
 const getStores = () => {
@@ -70,8 +70,7 @@ function StoreCard(props) {
 	);
 };
 
-export default function Dashboard() {
-
+function UserDashboard() {
 	const [stores, setStores] = useState(null);
 	
 	useEffect(() => {
@@ -85,9 +84,8 @@ export default function Dashboard() {
 	}, [])
 
 	
-	return ( 
+	return (
 		<>
-		
 		<Container>
 			<Grid container spacing={5} marginTop={5}>
 
@@ -100,4 +98,7 @@ export default function Dashboard() {
 		</Container>
 		</>
 	)
+	
 }
+
+export default withRouter(UserDashboard);

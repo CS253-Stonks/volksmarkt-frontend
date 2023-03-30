@@ -3,7 +3,8 @@ import { Typography } from "@mui/material";
 import CartCard from "./card";
 import { Grid } from "@mui/material";
 import {useState} from 'react';
-
+import { useHistory, withRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 const ShoppingCart = () => {
@@ -70,4 +71,4 @@ const ShoppingCart = () => {
 	);
 }
 
-export default ShoppingCart;
+export default withRouter(ShoppingCart)
