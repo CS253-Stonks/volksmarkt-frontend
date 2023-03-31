@@ -8,7 +8,7 @@ import SellerSignIn from './components/SellerSignInSignUp/SellerSignIn';
 import SellerSignUp from './components/SellerSignInSignUp/SellerSignUp';
 import SellerDashboard from './components/Dashboard/SellerDashboard';
 import ShoppingCart from './components/CartItems/ShoppingCart';
-import Shop from './components/Shop/Shop';
+import Shop from './components/Shop/Shop'
 import ForgotPassword from './components/SignInSignUp/ForgotPassword';
 import SellerForgotPassword from './components/SellerSignInSignUp/SellerForgotPassword';
 import MyOrders from './components/Orders/MyOrders';

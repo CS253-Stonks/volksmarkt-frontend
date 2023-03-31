@@ -4,23 +4,29 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 
 export default function GroupedButton(props) {
 
-    const {quantity, setQuantity} = props;
+    const {quantity, quantityToBuy, setQuantityToBuy} = props;
 
     const handleIncrement = () => {
-        setQuantity(quantity+1);
+        if(quantityToBuy+1 <= quantity){
+            setQuantityToBuy(quantityToBuy+1);
+        }
     };
     
     const handleDecrement = () => {
-        if(quantity >= 1){
-            setQuantity(quantity-1);
+        if(quantityToBuy >= 1){
+            setQuantityToBuy(quantityToBuy-1);
         }
     };
 
     return (
-        <ButtonGroup size="small" aria-label="outlined primary button group" variant="outlined">
-            <Button onClick={handleDecrement}>-</Button>
-            <Button>{quantity}</Button>
-            <Button onClick={handleIncrement}>+</Button>
+        <ButtonGroup size="medium" aria-label="outlined primary button group" variant="outlined" sx={{
+            marginY: '10px',
+            marginLeft: '80px',
+            marginRight: '20px',
+        }}>
+            <Button onClick={handleDecrement} size="large" sx={{width: '50px', height: '40px'}}>-</Button>
+            <Button size="large" sx={{width: '50px', height: '40px'}}>{quantityToBuy}</Button>
+            <Button onClick={handleIncrement} size="large" sx={{width: '50px', height: '40px'}}>+</Button>
         </ButtonGroup>
     );
     

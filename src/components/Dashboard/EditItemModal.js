@@ -1,4 +1,6 @@
 import * as React from 'react' 
+import Input from '@mui/material/Input'  
+import InputLabel from '@mui/material/InputLabel'  
 import Button from '@mui/material/Button' 
 import TextField from '@mui/material/TextField' 
 import Dialog from '@mui/material/Dialog' 
@@ -19,9 +21,9 @@ export default function FormDialog1(props) {
     const [description, setDescription] = useState('') 
     const [price, setPrice] = useState('') 
     const [quantity, setQuantity] = useState('') 
+    const [image, setImage] = useState(null) 
 
     const handleClickOpen = () => {
-        console.log(product)    
         setOpen(true) 
     } 
 
@@ -37,13 +39,19 @@ export default function FormDialog1(props) {
             description: description,
             price: price,
             quantity: quantity,
-            store: 1
+            store: 1,
+            image: image
         }
-        axios.put(`http://127.0.0.1:8000/Products/${Product.id}/`, Product)
+        axios.put(`http://127.0.0.1:8000/Products/${Product.id}/`, Product, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        })
     }
 
     const editItem = (e) => {
         submitHandler(e)
+        props.setFlag(props.flag===true ? false : true) 
         handleClose() 
     } 
 
@@ -109,6 +117,15 @@ export default function FormDialog1(props) {
                         fullWidth
                         variant="standard"
                     />
+                    <InputLabel htmlFor="image" onClick={(e) => (e.preventDefault())} sx={{
+                        marginTop: '10px'
+                    }}>
+                        Upload Product Image
+                    </InputLabel>
+                    <Input id="image" type="file" onChange={(e) => setImage(e.target.files[0])} sx={{
+                        marginTop: 0,
+                        height: '55px',
+                    }} fullWidth />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>CANCEL</Button>

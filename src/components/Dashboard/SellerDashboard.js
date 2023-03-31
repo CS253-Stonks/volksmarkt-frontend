@@ -1,12 +1,12 @@
-import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import { Container } from '@mui/system';
-import { Paper, ButtonBase, Button } from '@mui/material';
-import { styled } from "@mui/material/styles";
+import * as React from 'react' 
+import Typography from '@mui/material/Typography' 
+import Grid from '@mui/material/Grid' 
+import { Container } from '@mui/system' 
+import { Paper, ButtonBase, Button } from '@mui/material' 
+import { styled } from "@mui/material/styles" 
 import FormDialog from "./AddItemModal"
 import FormDialog1 from "./EditItemModal"
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react' 
 import axios from 'axios'
 
 
@@ -15,15 +15,18 @@ const Img = styled('img')({
 	display: 'block',
 	maxWidth: '100%',
 	maxHeight: '100%',
-});
+}) 
 
 
 function ComplexGrid(props) {
 
-	const product = props.product;
+	const product = props.product 
+	const flag = props.flag
+	const setFlag = props.setFlag
 
 	const deleteItem = () => {
 		axios.delete(`http://127.0.0.1:8000/Products/${product.id}/`)
+		props.setFlag(props.flag===true ? false : true) 
 	}
 
 	return (
@@ -42,7 +45,7 @@ function ComplexGrid(props) {
 			<Grid container spacing={2} width={800}>
 				<Grid item>
 					<ButtonBase sx={{ width: 128, height: 128 }}>
-						<Img alt="complex" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Bourbon_biscuit.jpg" />
+						<Img alt="complex" src={product.image} />
 					</ButtonBase>
 				</Grid>
 				<Grid item xs={12} sm container>
@@ -56,7 +59,7 @@ function ComplexGrid(props) {
 							</Typography>
 						</Grid>
 						<Grid item>
-						<FormDialog1 item={product}/>
+						<FormDialog1 item={product} flag={flag} setFlag={setFlag} />
 						<Button 
 							variant="outlined"  
 							sx={{
@@ -71,30 +74,32 @@ function ComplexGrid(props) {
 					</Grid>
 					<Grid item marginLeft={4}>
 						<Typography variant="subtitle1" component="div">
-							{product.price}
+						&#8377; {product.price}
 						</Typography>
 					</Grid>
 				</Grid>
 			</Grid>
 		</Paper>
-	);
+	) 
 }
 
 
 function SellerDashboard() {
 
-	const foo = [];
-	const [itemList, setItemList] = useState(foo);
+	const foo = [] 
+	const [itemList, setItemList] = useState(foo) 
+
+	const [flag, setFlag] = useState(false) 
 
 	useEffect(() => {
 		fetch('http://127.0.0.1:8000/Products/')
 		.then(res => {
-			return res.json();
+			return res.json() 
 		})
 		.then(data => {
-			setItemList(data);
+			setItemList(data) 
 		})
-	}, []);
+	}, [flag]) 
 
 
 	return (
@@ -111,13 +116,15 @@ function SellerDashboard() {
 			</Typography>
 			<Grid container direction="column">
 
-				<FormDialog sx={{
+				<FormDialog setFlag={setFlag} flag={flag} sx={{
 					marginLeft: 50,
 				}}/>
 				{itemList.map((item) => (
 					<ComplexGrid 
 						key = {item.id}
 						product = {item}
+						flag = {flag}
+						setFlag = {setFlag}
 					/>
 				))}
 
@@ -126,4 +133,4 @@ function SellerDashboard() {
 	)
 }
 
-export default withRouter(SellerDashboard);
+export default SellerDashboard 
