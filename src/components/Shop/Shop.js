@@ -35,8 +35,9 @@ const ProductCard = (props) => {
     }) 
 
     const toggleDrawer = (anchor, open) => (event) => {
+		console.log(anchor)
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return 
+			return 
         }
 
         setState({ ...state, [anchor]: open }) 
@@ -44,8 +45,10 @@ const ProductCard = (props) => {
 
 	const anchor = 'right' 
 	
-
-	const resetQuantity = () => {
+	
+	const resetQuantity = (e) => {
+		console.log(anchor)
+		toggleDrawer(anchor, false)(e)
 		if (!quantityToBuy) return 
 		console.log(quantityToBuy + ' Items added') 
 		setQuantityToBuy(0) 

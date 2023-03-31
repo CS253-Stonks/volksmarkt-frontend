@@ -1,46 +1,43 @@
-import { Container } from "@mui/system";
-import { Typography } from "@mui/material";
-import CartCard from "./card";
-import { Grid } from "@mui/material";
-import {useState} from 'react';
-import { useHistory, withRouter } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { Container } from "@mui/system" 
+import { Typography } from "@mui/material" 
+import CartCard from "./card" 
+import { Grid, Box, Button } from "@mui/material" 
+import {useState, useEffect} from 'react' 
+import { useHistory, withRouter } from 'react-router-dom' 
+import { useLocation } from 'react-router-dom' 
 
 
 const ShoppingCart = () => {
 
-	const foo = [
-		{
-			"productName": "E-shop",
-			"description": "This is near Hall 3",
-			"quantity": 10,
-			"price": 150,
-			"id": 1,
-		},
-		{
-			"productName": "F-shop",
-			"description": "This is near Hall 3",
-			"quantity": 9,
-			"price": 250,
-			"id": 2,
-		},
-		{
-			"productName": "G-shop",
-			"description": "This is near Hall 3",
-			"quantity": 8,
-			"price": 350,
-			"id": 3,
-		},
-		{
-			"productName": "H-shop",
-			"description": "This is near Hall 3",
-			"quantity": 7,
-			"price": 450,
-			"id": 4,
-		},
-	];
-	const [list, setList] = useState(foo);
-	
+	const [list, setList] = useState([])
+	const [totalPrice, setTotalPrice] = useState(20000)
+
+	useEffect(() => {
+
+		// fetch('http://127.0.0.1:8000/Shopping/Cart/3/')
+		// .then(res => {
+		// 	return res.json() 
+		// })
+		// .then(data => {
+		// 	data.map((pro) => (
+		// 		fetch(`http://127.0.0.1:8000/Products/${pro.product}/`)
+		// 		.then(res => {
+		// 			return res.json()
+		// 		})
+		// 		.then(data => {
+		// 			setList([...list,  data])
+		// 		})
+		// 	))
+		// })
+		const foo = async () => {
+			const data = await (await fetch('http://127.0.0.1:8000/Shopping/Cart/3/')).json()
+			const tempList = await Promise.all(data.map(async (cartItem)=> (await (await fetch(`http://127.0.0.1:8000/Products/${cartItem.product}/`)).json())))
+			setList(tempList)
+		}
+		foo();
+	}, []) 
+	console.log(list);
+
 	return (
 		<Container>
 			<Typography
@@ -56,19 +53,40 @@ const ShoppingCart = () => {
 			<Grid container direction="column">
 				{list.map((card) => (
 					<CartCard 
-						productName = {card.productName}
+						productName = {card.name}
 						description = {card.description}
 						quantity = {card.quantity}
 						price = {card.price}
 						id = {card.id}
 						list = {list}
 						setList = {setList}
+						image = {card.image}
 						key = {card.id}
+						totalSum = {totalPrice}
+						setTotalSum = {setTotalPrice}
 					/>
 				))}
 			</Grid>
+			<Box sx={{
+				width: '53%',
+				height: '100px',
+				marginX: 'auto',
+				marginBottom: '40px',
+				boxShadow: '6px 6px 5px rgba(0, 0, 0, 0.3)',
+				padding: '40px'
+			}}>
+				<Typography component="div" variant="h5" sx={{
+					textAlign: 'center',
+				}}>
+					Total Price: &#8377; {totalPrice}
+                </Typography>
+				<Button size="large" variant="contained" sx={{
+					marginLeft: '250px',
+					marginTop: '30px'
+				}}>PLACE ORDER</Button>
+			</Box>
 		</Container>
-	);
+	) 
 }
 
 export default withRouter(ShoppingCart)

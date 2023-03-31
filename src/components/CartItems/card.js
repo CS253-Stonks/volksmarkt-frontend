@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 export default function CartCard(props) {
 
-    const {productName, description, quantity, price, id, list, setList} = props;
+    const {productName, description, quantity, price, id, list, setList, image, totalSum, setTotalSum} = props;
     
     const getTotalPrice = (quantity, price) => {
         return quantity*price;
@@ -20,6 +20,7 @@ export default function CartCard(props) {
     const [totalPrice, setTotalPrice] = useState(getTotalPrice(quantity, price));
 
     const removeItemFromList = (e) => {
+        
         const newList = (list.filter((item) => {
             return item.id !== id;
         }))
@@ -77,7 +78,7 @@ export default function CartCard(props) {
                     alignSelf: 'flex-end',
                     marginLeft: 'auto',
                 }}
-                image="https://img.atcoder.jp/assets/atcoder.png"
+                image={image}
                 alt="Live from space album cover"
             />
         </Card>
