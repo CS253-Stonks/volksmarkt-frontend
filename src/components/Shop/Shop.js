@@ -110,7 +110,7 @@ const ProductCard = (props) => {
 					paddingY: 0
 				}}>
 					<Typography>
-						{productQuantity}
+						Quantity Available: {productQuantity}
 					</Typography>
 				</CardContent>
 				<CardContent sx={{
@@ -120,7 +120,7 @@ const ProductCard = (props) => {
 					paddingY: 0
 				}}>
 					<Typography>
-						&#8377; {productPrice}
+						Price: &#8377; {productPrice}
 					</Typography>
 				</CardContent>
 
