@@ -13,6 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useHistory, withRouter } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
+
 
 function Copyright(props) {
   return (
@@ -30,17 +33,28 @@ function Copyright(props) {
 const theme = createTheme();
 
 function SignUp() {
+  
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [address, setAddress] = useState('')
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const data = new FormData();
+    data.append('first_name',firstName);
+    data.append('last_name',lastName);
+    data.append('address',address);
+    data.append('email',email);
+    data.append('password',password);
+    axios.post('http://127.0.0.1:8000/buyer/register/',data).then((res) => console.log(res));
   };
   const history = useHistory();
   const moveToSignIn = () => {
-    history.push('/SignIn');
+    history.push('/SignIn/')
+  }
+  const doRegister = (e) => {
+      e.preventDefault()
   }
   return (
     <ThemeProvider theme={theme}>
@@ -65,31 +79,34 @@ function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="first_name"
                   required
                   fullWidth
-                  id="firstName"
+                  id="first_name"
                   label="First Name"
                   autoFocus
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
+                  id="last_name"
                   label="Last Name"
-                  name="lastName"
+                  name="last_name"
                   autoComplete="family-name"
+                  onChange={(e) => setLastName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="Address"
+                  id="address"
                   label="Address"
-                  name="Address"
+                  name="address"
+                  onChange={(e) => (setAddress(e.target.value))}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -100,6 +117,7 @@ function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -111,6 +129,7 @@ function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -125,7 +144,7 @@ function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={moveToSignIn}
+              onClick={handleSubmit}
             >
               Sign Up
             </Button>

@@ -23,6 +23,7 @@ import ListItemText from '@mui/material/ListItemText'
 import { useLocation } from 'react-router-dom'
 
 
+
 const StyledBadge = styled(Badge)(({ theme }) => ({
 	'& .MuiBadge-badge': {
 		right: -3,
@@ -35,6 +36,10 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 
 function NavBar() {
+	const history = useHistory();
+	const openSide = (text) => {
+		if(text === 'Cart') history.push('/cart/')
+	}
 	const [state, setState] = React.useState({
 		top: false,
 		left: false,
@@ -60,7 +65,7 @@ function NavBar() {
 			<List>
 				{['Home', 'My Orders', 'Catalogue', 'Cart'].map((text, index) => (
 					<ListItem key={text} disablePadding>
-						<ListItemButton>
+						<ListItemButton onClick={() => openSide(text)}>
 							<ListItemIcon>
 								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
 							</ListItemIcon>
@@ -86,7 +91,6 @@ function NavBar() {
 	)
 
 
-	const history = useHistory()
 
 	const handleLogin = () => {
 		history.push("/SignIn")
