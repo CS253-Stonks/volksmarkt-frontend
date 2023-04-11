@@ -33,6 +33,9 @@ const firebaseConfig = {
   measurementId: "G-S8H1PTD7EB"
 };
 
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -65,17 +68,20 @@ function SignUp() {
 
   const history = useHistory();
   const auth = getAuth();
+  const moveToSignIn = () => {
+    history.push('/SignIn/')
+  }
   const doRegister = (e) => {
       e.preventDefault()
-      const user = {
-        first_name: firstName,
-        last_name: lastName,
-        email: email,
-        password: password,
-        address: address
-      };
-      console.log(user)
-      axios.post(user).then((res) => console.log(res));
+      createUserWithEmailAndPassword(auth, email, password).then(
+        (userCreditnal) => {
+          console.log(userCreditnal);
+        }
+      ).catch(
+        (err) => {
+          console.log(err);
+        }
+      )
   }
   return (
     <ThemeProvider theme={theme}>
