@@ -13,6 +13,25 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useHistory, withRouter } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+// Follow this pattern to import other Firebase services
+// import { } from 'firebase/<service>';
+
+// TODO: Replace the following with your app's Firebase project configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBEUEcOi3E7Cn8Q3iz1BXz3uWHI6uiMzuY",
+  authDomain: "volksmarkt-4d5c7.firebaseapp.com",
+  projectId: "volksmarkt-4d5c7",
+  storageBucket: "volksmarkt-4d5c7.appspot.com",
+  messagingSenderId: "90681579068",
+  appId: "1:90681579068:web:d801aa9a2ebdacdcdfd539",
+  measurementId: "G-S8H1PTD7EB"
+};
 
 function Copyright(props) {
   return (
@@ -38,9 +57,25 @@ function SignUp() {
       password: data.get('password'),
     });
   };
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [address, setAddress] = useState('')
+
   const history = useHistory();
-  const moveToSignIn = () => {
-    history.push('/SignIn');
+  const auth = getAuth();
+  const doRegister = (e) => {
+      e.preventDefault()
+      const user = {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: password,
+        address: address
+      };
+      console.log(user)
+      axios.post(user).then((res) => console.log(res));
   }
   return (
     <ThemeProvider theme={theme}>
@@ -71,6 +106,7 @@ function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -81,6 +117,7 @@ function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  onChange={(e) => setLastName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -90,6 +127,7 @@ function SignUp() {
                   id="Address"
                   label="Address"
                   name="Address"
+                  onChange={(e) => (setAddress(e.target.value))}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -100,6 +138,7 @@ function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -111,6 +150,7 @@ function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -125,7 +165,7 @@ function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={moveToSignIn}
+              onClick={doRegister}
             >
               Sign Up
             </Button>
