@@ -3,15 +3,35 @@ import { Typography } from "@mui/material"
 import CartCard from "./card"
 import { Grid, Box, Button } from "@mui/material"
 import { useState, useEffect } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, useHistory } from 'react-router-dom'
+
+
+const TotalPrice = (props) => {
+	return (
+		<Typography component="div" variant="h5" sx={{
+			textAlign: 'center',
+		}}>
+			Total Price: &#8377; {100330}
+		</Typography>
+	)
+}
+
 
 
 const ShoppingCart = () => {
 
+	const history = useHistory()
+
 	const [list, setList] = useState([])
 	const [cart, setCart] = useState([])
-	const [totalPrice, setTotalPrice] = useState(0)
-	let dict = ([])
+
+	var dict = {}
+	
+	const handleOrder = (e) =>{
+		console.log(e)
+		alert('Order Placed')
+		history.push('/')
+	}
 
 	useEffect(() => {
 		const foo = async () => {
@@ -19,22 +39,22 @@ const ShoppingCart = () => {
 			const tempList = await Promise.all(data.map(async (cartItem) => (await (await fetch(`http://127.0.0.1:8000/Products/${cartItem.product}/`)).json())))
 			setCart(data)
 			setList(tempList)
-			let sum = 0
-			cart.map((cartItem) => (
-				dict[cartItem.product] = cartItem.quantity
-			))
-
-			list.map((item) => (
-				sum += dict[item.id] * item.price
-			))
-			console.log(sum)
-			setTotalPrice(sum)
-			console.log(totalPrice)
 		}
 		foo()
 	}, [])
 
-	console.log(list)
+	let sum = 0
+	for (const cartItem of cart){
+		dict[cartItem.product] = cartItem.quantity
+	}
+	
+	for (const item of list){
+		item.quantity = dict[item.id]
+		sum += dict[item.id] * item.price
+	}
+
+	const [totalPrice, setTotalPrice] = useState(sum)
+	console.log(sum)	
 
 	return (
 		<Container>
@@ -73,12 +93,8 @@ const ShoppingCart = () => {
 				boxShadow: '6px 6px 5px rgba(0, 0, 0, 0.3)',
 				padding: '40px'
 			}}>
-				<Typography component="div" variant="h5" sx={{
-					textAlign: 'center',
-				}}>
-					Total Price: &#8377; {totalPrice}
-				</Typography>
-				<Button size="large" variant="contained" sx={{
+				<TotalPrice totalPrice={sum} />
+				<Button size="large" variant="contained" onClick={handleOrder } sx={{
 					marginLeft: '250px',
 					marginTop: '30px'
 				}}>PLACE ORDER</Button>
