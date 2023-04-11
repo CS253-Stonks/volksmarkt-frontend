@@ -13,26 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useHistory, withRouter } from 'react-router-dom';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-// Follow this pattern to import other Firebase services
-// import { } from 'firebase/<service>';
-
-// TODO: Replace the following with your app's Firebase project configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBEUEcOi3E7Cn8Q3iz1BXz3uWHI6uiMzuY",
-  authDomain: "volksmarkt-4d5c7.firebaseapp.com",
-  projectId: "volksmarkt-4d5c7",
-  storageBucket: "volksmarkt-4d5c7.appspot.com",
-  messagingSenderId: "90681579068",
-  appId: "1:90681579068:web:d801aa9a2ebdacdcdfd539",
-  measurementId: "G-S8H1PTD7EB"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import axios from 'axios';
 
 function Copyright(props) {
   return (
@@ -50,19 +31,26 @@ function Copyright(props) {
 const theme = createTheme();
 
 function SignIn() {
-  const auth = getAuth();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const email = data.get('email')
-    const password = data.get('password')
-    signInWithEmailAndPassword(auth, email, password).then(
-      (user) => {
-        console.log(user);
+    const data = new FormData();
+    data.append('username', email)
+    data.append('password', password);
+    console.log(email);
+    console.log(password);
+    console.log(data);
+    axios.post("http://127.0.0.1:8000/buyer/login/", data).then(
+      (res) => {
+        if(res.data['isAuthenticated']){
+            alert("Welcome " + res.data['firstName']);
+        }
+        else{
+          alert("Login fail");
+        }
       }
-    ).catch((err) => {
-      console.log(err);
-    })
+    )
   };
   const history = useHistory();
   const goToSignUp = () => {
@@ -106,6 +94,7 @@ function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -116,6 +105,7 @@ function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

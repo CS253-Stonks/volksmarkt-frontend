@@ -15,26 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useHistory, withRouter } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-// Follow this pattern to import other Firebase services
-// import { } from 'firebase/<service>';
 
-// TODO: Replace the following with your app's Firebase project configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBEUEcOi3E7Cn8Q3iz1BXz3uWHI6uiMzuY",
-  authDomain: "volksmarkt-4d5c7.firebaseapp.com",
-  projectId: "volksmarkt-4d5c7",
-  storageBucket: "volksmarkt-4d5c7.appspot.com",
-  messagingSenderId: "90681579068",
-  appId: "1:90681579068:web:d801aa9a2ebdacdcdfd539",
-  measurementId: "G-S8H1PTD7EB"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 function Copyright(props) {
   return (
@@ -52,36 +33,28 @@ function Copyright(props) {
 const theme = createTheme();
 
 function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [address, setAddress] = useState('')
-
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData();
+    data.append('first_name',firstName);
+    data.append('last_name',lastName);
+    data.append('address',address);
+    data.append('email',email);
+    data.append('password',password);
+    axios.post('http://127.0.0.1:8000/buyer/register/',data).then((res) => console.log(res));
+  };
   const history = useHistory();
-  const auth = getAuth();
   const moveToSignIn = () => {
     history.push('/SignIn/')
   }
   const doRegister = (e) => {
       e.preventDefault()
-      createUserWithEmailAndPassword(auth, email, password).then(
-        (userCreditnal) => {
-          console.log(userCreditnal);
-        }
-      ).catch(
-        (err) => {
-          console.log(err);
-        }
-      )
   }
   return (
     <ThemeProvider theme={theme}>
@@ -106,10 +79,10 @@ function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="first_name"
                   required
                   fullWidth
-                  id="firstName"
+                  id="first_name"
                   label="First Name"
                   autoFocus
                   onChange={(e) => setFirstName(e.target.value)}
@@ -119,9 +92,9 @@ function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
+                  id="last_name"
                   label="Last Name"
-                  name="lastName"
+                  name="last_name"
                   autoComplete="family-name"
                   onChange={(e) => setLastName(e.target.value)}
                 />
@@ -130,9 +103,9 @@ function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="Address"
+                  id="address"
                   label="Address"
-                  name="Address"
+                  name="address"
                   onChange={(e) => (setAddress(e.target.value))}
                 />
               </Grid>
@@ -171,7 +144,7 @@ function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={doRegister}
+              onClick={handleSubmit}
             >
               Sign Up
             </Button>
