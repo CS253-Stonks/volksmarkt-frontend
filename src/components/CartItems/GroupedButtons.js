@@ -11,7 +11,7 @@ export default function GroupedButtons(props) {
 
     const handleIncrement = () => {
         setState(state => ({ counter: state.counter + 1 }));
-        if(setTotalPrice)    setTotalPrice(price * (state.counter+1));
+        // if(setTotalPrice)    setTotalPrice(price * (state.counter+1));
     };
     
     const handleDecrement = () => {
@@ -21,7 +21,7 @@ export default function GroupedButtons(props) {
         if(state.counter === 1){
             removeFromList();
         }
-        setTotalPrice(price * (state.counter-1));
+        // setTotalPrice(price * (state.counter-1));
     };
 
     return (

@@ -1,48 +1,49 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import { Container } from '@mui/system';
-import shopImage from "./shopImage.jpg";
-import { useHistory} from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import NavBar from '../Navbar/navbar';
+import * as React from 'react'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Typography from '@mui/material/Typography'
+import { CardActionArea } from '@mui/material'
+import Grid from '@mui/material/Grid'
+import { Container } from '@mui/system'
+import shopImage from "./shopImage.jpg"
+import { useHistory} from 'react-router-dom'
+import { useState, useEffect } from 'react'
+
 const getStores = () => {
 	return [
 		{
 			"name": "E-shop",
-			"description": "This is near GH",
+			"address": "",
 			"id": 1
 		},
 		{
 			"name": "C-shop",
-			"description": "This is also near GH",
+			"address": "",
 			"id": 2
 		},
 		{
 			"name": "Old shop",
-			"description": "Everything is near GH",
+			"address": "",
 			"id": 3
 		},
 		{
 			"name": "New shop",
-			"description": "GH is at the centre of the universe",
+			"address": "",
 			"id": 4
 		},
 	]
 }
 
 
-
 function StoreCard(props) {
-
-	const history = useHistory();
+	
+	const history = useHistory()
+	const shopID = props.id
 
 	const linkToShop = () =>{
-		history.push('/shop')
+		console.log(shopID)
+		history.push(`/shop/${shopID}`)
 	}
 	
 	return (
@@ -67,37 +68,35 @@ function StoreCard(props) {
 			</Card>
 		</Grid>
 
-	);
-};
+	)
+}
 
 export default function Dashboard() {
 
-	const [stores, setStores] = useState(null);
+	const [stores, setStores] = useState(null)
 	
 	useEffect(() => {
 		fetch('http://127.0.0.1:8000/Stores/').then(res => {
-			return res.json();
+			return res.json()
 		}).then(data => {
-			// console.log(data);
-			setStores(data);
+			console.log(data)
+			setStores(data)
 		}
 		)
 	}, [])
 
+	console.log(stores)
 	
 	return ( 
-		<>
-		
 		<Container>
 			<Grid container spacing={5} marginTop={5}>
 
-				{stores?stores.map((store) => (
-					<StoreCard name={store.name} desc={store.address} key={store.id}/>
-				)):getStores().map((store) => (
-					<StoreCard name={store.name} desc={store.description} key={store.id}/>
+				{stores ? stores.map((store) => (
+					<StoreCard name={store.name} desc={store.address} key={store.id} id={store.id}/>
+				)) : getStores().map((store) => (
+					<StoreCard name={store.name} desc={store.address} key={store.id} id={store.id}/>
 		  		))}
 			</Grid>
 		</Container>
-		</>
 	)
 }

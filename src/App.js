@@ -15,54 +15,51 @@ import MyOrders from './components/Orders/MyOrders';
 import UserDashboard from './components/Dashboard/UserDashboard';
 
 function App() {
-  return (
-    <>
-    <Router>
-    <NavBar />
-      <Switch>
-        <Route exact path='/'>
-        <Dashboard />
-        </Route>
-        <Route exact path='/UserDashboard'>
-        <UserDashboard />
-        </Route>
-        <Route exact path='/SignIn'>
-          <SignIn />
-        </Route>
-        <Route exact path='/SignUp'>
-          <Signup />
-        </Route>
-        <Route exact path='/forgotPassword'>
-          <ForgotPassword />
-        </Route>
-        <Route exact path='/seller/'>
-          <SellerDashboard />
-        </Route>
-        <Route exact path='/seller/SignIn'>
-          <SellerSignIn />
-        </Route>
-        <Route exact path='/seller/SignUp'>
-          <SellerSignUp />
-        </Route>
-        <Route exact path='/cart'>
-          <ShoppingCart />
-        </Route>
-        <Route exact path='/seller/SellerForgotPassword'>
-          <SellerForgotPassword />
-        </Route>
-        <Route exact path='/cart/'>
-          <ShoppingCart />
-        </Route>
-        <Route exact path='/shop/'>
-          <Shop />
-        </Route>
-        <Route exact path='/MyOrders/'>
-          <MyOrders />
-        </Route>
-    </Switch>
-    </Router>
-    </>
-  );
+	return (
+		<>
+			<Router>
+				<NavBar />
+				<Switch>
+					<Route exact path='/'>
+						<Dashboard />
+					</Route>
+					<Route exact path='/UserDashboard'>
+						<UserDashboard />
+					</Route>
+					<Route exact path='/SignIn'>
+						<SignIn />
+					</Route>
+					<Route exact path='/SignUp'>
+						<Signup />
+					</Route>
+					<Route exact path='/forgotPassword'>
+						<ForgotPassword />
+					</Route>
+					<Route exact path='/seller/'>
+						<SellerDashboard />
+					</Route>
+					<Route exact path='/seller/SignIn'>
+						<SellerSignIn />
+					</Route>
+					<Route exact path='/seller/SignUp'>
+						<SellerSignUp />
+					</Route>
+					<Route exact path='/cart'>
+						<ShoppingCart />
+					</Route>
+					<Route exact path='/seller/SellerForgotPassword'>
+						<SellerForgotPassword />
+					</Route>
+					<Route path='/shop/:id'>
+						<Shop />
+					</Route>
+					<Route exact path='/MyOrders/'>
+						<MyOrders />
+					</Route>
+				</Switch>
+			</Router>
+		</>
+	);
 }
 
 export default App;

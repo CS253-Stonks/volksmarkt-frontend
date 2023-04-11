@@ -14,17 +14,19 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import GroupedButton from './GroupedButton' 
 import { useState, useEffect } from "react" 
 import { CardActionArea } from '@mui/material' 
+import { useParams } from 'react-router-dom'
 
 const theme = createTheme() 
 
 
 const ProductCard = (props) => {
 
-	const productName = props.name 
-	const productDescription = props.description 
-	const productPrice = props.price 
-	const [productQuantity, setProductQuantity] = useState(props.quantity) 
-	const productID = props.id 
+	const card = props.card
+	const productName = card.name 
+	const productDescription = card.description 
+	const productPrice = card.price 
+	const [productQuantity, setProductQuantity] = useState(card.quantity) 
+	const productID = card.id 
 	const [quantityToBuy, setQuantityToBuy] = useState(0)
 
 	const [state, setState] = React.useState({
@@ -71,7 +73,7 @@ const ProductCard = (props) => {
 			}}>
 				<CardMedia
                     component="img"
-                    image={props.image}
+                    image={card.image}
                     alt="random"
                     sx={{
 						height: '400px',
@@ -164,7 +166,7 @@ const ProductCard = (props) => {
 					boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.3)'
 				}}
 			>	
-				<CardMedia component="img" image={props.image} alt="random" sx={{
+				<CardMedia component="img" image={card.image} alt="random" sx={{
 					height: '300px',
 
 				}}/>
@@ -203,7 +205,7 @@ export default function Shop() {
 
 	
 	const [cards, setCards] = useState([]) 
-
+	const shopId = useParams().id
 
 	useEffect(() => {
 		fetch('http://127.0.0.1:8000/Products/')
@@ -215,12 +217,10 @@ export default function Shop() {
 		})
 	}, []) 
 
-
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
 			<main>
-				{/* Hero unit */}
 				<Box
 					sx={{
 						bgcolor: 'background.paper',
@@ -235,13 +235,10 @@ export default function Shop() {
 					{/* End hero unit */}
 					<Grid container spacing={4}>
 						{cards.map((card) => (
+							(card.store.toString() === shopId) && 
 							<ProductCard
-								name={card.name}
-								description={card.description}
-								quantity={card.quantity}
-								price={card.price}
-								key={card.id}
-								image={card.image}
+								card = {card}
+								key = {card.id}
 							/>
 						))}
 					</Grid>
