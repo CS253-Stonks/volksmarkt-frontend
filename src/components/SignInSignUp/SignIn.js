@@ -34,6 +34,7 @@ const theme = createTheme();
 function SignIn() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const history = useHistory();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData();
@@ -44,18 +45,22 @@ function SignIn() {
     console.log(data);
     axios.post("http://127.0.0.1:8000/buyer/login/", data).then(
       (res) => {
+        console.log(res.data);
         if(res.data['isAuthenticated']){
             console.log(res.data)
-            alert("Welcome " + res.data['user']);
+            // alert("Welcome " + res.data['firstName']);
             localStorage.setItem('userID', res.data['id']);
+            localStorage.setItem('first_name', res.data['firstName'])
+            localStorage.setItem('last_name', res.data['lastName'])
+            console.log(localStorage.getItem('first_name'));
         }
         else{
           alert("Login fail");
         }
       }
     )
+    history.push('/');
   };
-  const history = useHistory();
   const goToSignUp = () => {
     history.push('/SignUp')
   }
