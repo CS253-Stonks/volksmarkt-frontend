@@ -12,7 +12,7 @@ import axios from 'axios'
 
 export default function CartCard(props) {
 
-    const {productName, description, quantity, price, id, list, setList, image, totalSum, setTotalSum} = props;
+    const {productName, description, quantity, price, cartItemId, totalq, id, list, setList, image, sum, setSum, init} = props;
     
     const getTotalPrice = (quantity, price) => {
         return quantity*price;
@@ -22,7 +22,7 @@ export default function CartCard(props) {
 
     const removeItemFromList = (e) => {
 
-        axios.delete(`http://127.0.0.1:8000/Shopping/Cart/${id}/`)
+        axios.delete(`http://127.0.0.1:8000/Shopping/CartItem/${cartItemId}/`)
         
         const newList = (list.filter((item) => {
             return item.id !== id;
@@ -64,6 +64,11 @@ export default function CartCard(props) {
                             quantity={quantity} 
                             price={price} 
                             setTotalPrice={setTotalPrice}
+                            totalq={totalq}
+                            sum={sum}
+                            setSum={setSum}
+                            init = {init}
+                            cartItemID = {cartItemId}
                         />
                         <Button variant="outlined" onClick={removeItemFromList} sx={{
                             marginLeft: '20px',

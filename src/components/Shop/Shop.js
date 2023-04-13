@@ -29,7 +29,7 @@ const ProductCard = (props) => {
 	const [productQuantity, setProductQuantity] = useState(card.quantity) 
 	const productID = card.id 
 	const [quantityToBuy, setQuantityToBuy] = useState(0)
-	const user = 3
+	const user = localStorage.getItem('userID')
 
 	const [state, setState] = React.useState({
         top: false,

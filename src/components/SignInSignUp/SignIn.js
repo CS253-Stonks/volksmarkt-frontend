@@ -47,7 +47,7 @@ function SignIn() {
         if(res.data['isAuthenticated']){
             console.log(res.data)
             alert("Welcome " + res.data['user']);
-            localStorage.setItem('user',res.data['user']);
+            localStorage.setItem('userID', res.data['id']);
         }
         else{
           alert("Login fail");

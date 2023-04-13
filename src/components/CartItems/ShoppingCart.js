@@ -11,7 +11,7 @@ const TotalPrice = (props) => {
 		<Typography component="div" variant="h5" sx={{
 			textAlign: 'center',
 		}}>
-			Total Price: &#8377; {100330}
+			Total Price: &#8377; {props.sum + props.z}
 		</Typography>
 	)
 }
@@ -25,7 +25,8 @@ const ShoppingCart = () => {
 	const [cart, setCart] = useState([])
 
 	var dict = {}
-	var user = 3
+	var dict2 = {}
+	var user = localStorage.getItem('userID')
 	
 	const handleOrder = (e) =>{
 		console.log(e)
@@ -41,20 +42,20 @@ const ShoppingCart = () => {
 			setList(tempList)
 		}
 		foo()
-	}, [])
+	}, [user])
 
-	let sum = 0
+
+	var z=0
 	for (const cartItem of cart){
 		dict[cartItem.product] = cartItem.quantity
+		dict2[cartItem.product] = cartItem.id
 	}
 	
 	for (const item of list){
 		item.quantity = dict[item.id]
-		sum += dict[item.id] * item.price
+		z += dict[item.id] * item.price
 	}
-
-	const [totalPrice, setTotalPrice] = useState(sum)
-	console.log(sum)	
+	const [sum, setSum] = useState(z)
 
 	return (
 		<Container>
@@ -74,14 +75,17 @@ const ShoppingCart = () => {
 						productName={card.name}
 						description={card.description}
 						quantity={dict[card.id]}
+						totalq={card.quantity}
 						price={card.price}
 						id={card.id}
 						list={list}
+						cartItemId={dict2[card.id]}
 						setList={setList}
 						image={card.image}
 						key={card.id}
-						totalSum = {totalPrice}
-						setTotalSum = {setTotalPrice}
+						sum = {sum}
+						setSum = {setSum}
+						init = {z}
 					/>
 				))}
 			</Grid>
@@ -93,7 +97,7 @@ const ShoppingCart = () => {
 				boxShadow: '6px 6px 5px rgba(0, 0, 0, 0.3)',
 				padding: '40px'
 			}}>
-				<TotalPrice totalPrice={sum} />
+				<TotalPrice sum={sum} z={z}/>
 				<Button size="large" variant="contained" onClick={handleOrder } sx={{
 					marginLeft: '250px',
 					marginTop: '30px'
