@@ -23,7 +23,6 @@ import ListItemText from '@mui/material/ListItemText'
 import { useLocation } from 'react-router-dom'
 
 
-
 const StyledBadge = styled(Badge)(({ theme }) => ({
 	'& .MuiBadge-badge': {
 		right: -3,
@@ -101,6 +100,30 @@ function NavBar() {
 	const movetoCart = () => {
 		history.push('/cart/')
 	}
+	const moveToMyOrders = () => {
+		history.push('/MyOrders');
+	}
+	const RightSide = (type) => {
+		console.log('local')
+		console.log(localStorage.getItem('first_name'));
+		if(localStorage.getItem('first_name') === null){
+			if(type === 'Seller'){
+				return (
+					<Button color="inherit" onClick={handleLoginSeller} sx={{ marginX: 2 }}>Login</Button>
+				)
+			}
+			else{
+				return (
+					<Button color="inherit" onClick={handleLogin} sx={{ marginX: 2 }}>Login</Button>
+				)
+			}
+		}
+		else{
+			return (
+				<Button color="inherit" onClick = {moveToMyOrders} sx={{ marginX: 2 }}>{localStorage.getItem('first_name') + ' ' + localStorage.getItem('last_name')}</Button>
+			)
+		}
+	}
 	const CartButton = () => {
 		return (
 			<IconButton onClick={movetoCart}>
@@ -142,7 +165,7 @@ function NavBar() {
 								Dashboard
 							</Typography>
 							<CartButton />
-							<Button color="inherit" onClick={handleLogin} sx={{ marginX: 2 }}>Login</Button>
+							{RightSide('Buyer')}
 						</Route>
 						<Route exact path="/SignIn">
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -154,6 +177,7 @@ function NavBar() {
 								Sign Up
 							</Typography>
 							<CartButton />
+							
 							<Button color="inherit" onClick={handleLogin} sx={{ marginX: 2 }}>Login</Button>
 						</Route>
 						<Route exact path='/seller/SignIn'>
