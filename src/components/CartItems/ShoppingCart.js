@@ -4,6 +4,7 @@ import CartCard from "./card"
 import { Grid, Box, Button } from "@mui/material"
 import { useState, useEffect } from 'react'
 import { withRouter, useHistory } from 'react-router-dom'
+import axios from "axios"
 
 
 const TotalPrice = (props) => {
@@ -11,7 +12,7 @@ const TotalPrice = (props) => {
 		<Typography component="div" variant="h5" sx={{
 			textAlign: 'center',
 		}}>
-			Total Price: &#8377; {props.sum + props.z}
+			Total Price: &#8377; {props.sum}
 		</Typography>
 	)
 }
@@ -23,39 +24,55 @@ const ShoppingCart = () => {
 
 	const [list, setList] = useState([])
 	const [cart, setCart] = useState([])
+	const [sum, setSum] = useState(0)
 
 	var dict = {}
 	var dict2 = {}
 	var user = localStorage.getItem('userID')
 	
-	const handleOrder = (e) =>{
-		console.log(e)
-		alert('Order Placed')
-		history.push('/')
-	}
-
+	
 	useEffect(() => {
 		const foo = async () => {
 			const data = await (await fetch(`http://127.0.0.1:8000/Shopping/Cart/${user}/`)).json()
-			const tempList = await Promise.all(data.map(async (cartItem) => (await (await fetch(`http://127.0.0.1:8000/Products/${cartItem.product}/`)).json())))
-			setCart(data)
+			const tempList = await Promise.all(data.items.map(async (cartItem) => (await (await fetch(`http://127.0.0.1:8000/Products/${cartItem.product}/`)).json())))
+			setCart(data.items)
 			setList(tempList)
+			setSum(data.cost)
 		}
 		foo()
-	}, [user])
-
-
-	var z=0
+	}, [])
+	
+	
 	for (const cartItem of cart){
 		dict[cartItem.product] = cartItem.quantity
 		dict2[cartItem.product] = cartItem.id
 	}
 	
-	for (const item of list){
-		item.quantity = dict[item.id]
-		z += dict[item.id] * item.price
+	const handleOrder = (e) =>{
+		console.log(e)
+
+		const newList = []
+		console.log(list)
+		for(const item of list){
+			const obj = {
+				product: item.id,
+				buyer: user,
+				quantity: dict[item.id],
+			}
+		}
+
+		const z = {
+			deliveryaddress: "Hall 3",
+			total_cost: sum,
+		}
+
+		console.log(newList)
+
+		axios.post(`http://127.0.0.1:8000/Shopping/PlaceOrder/${user}/`, z, {})
+
+		alert('Order Placed')
+		history.push('/')
 	}
-	const [sum, setSum] = useState(z)
 
 	return (
 		<Container>
@@ -85,7 +102,7 @@ const ShoppingCart = () => {
 						key={card.id}
 						sum = {sum}
 						setSum = {setSum}
-						init = {z}
+						dict = {dict}
 					/>
 				))}
 			</Grid>
@@ -97,8 +114,8 @@ const ShoppingCart = () => {
 				boxShadow: '6px 6px 5px rgba(0, 0, 0, 0.3)',
 				padding: '40px'
 			}}>
-				<TotalPrice sum={sum} z={z}/>
-				<Button size="large" variant="contained" onClick={handleOrder } sx={{
+				<TotalPrice sum={sum}/>
+				<Button size="large" variant="contained" onClick={handleOrder} sx={{
 					marginLeft: '250px',
 					marginTop: '30px'
 				}}>PLACE ORDER</Button>

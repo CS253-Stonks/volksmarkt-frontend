@@ -84,8 +84,6 @@ export default function Dashboard() {
 		}
 		)
 	}, [])
-
-	console.log(stores)
 	
 	return ( 
 		<Container>

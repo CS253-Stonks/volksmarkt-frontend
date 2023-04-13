@@ -45,19 +45,20 @@ const ColorChips = (props) => {
 const theme = createTheme();
 
 
-
-
-
 const OrderCard = (props) => {
 
-    const {cost, address, date, items} = props
+    const orderName = props.name;
+    const orderDescription = props.description;
+    const orderKey = props.id;
+    const orderStatus = props.status;
+    const image = props.image;
 
     return (
 
         <>
-            <Grid item xs={12}>
+            <Grid item id={orderKey} xs={12}>
                 <Card
-                    sx={{ height: '200px', width:'650px', display: 'flex', flexDirection: 'row', marginX: 'auto' }}
+                    sx={{ height: '200px', display: 'flex', flexDirection: 'row' }}
                 >
                     <Paper sx={{
                         marginRight: 'auto',
@@ -75,16 +76,13 @@ const OrderCard = (props) => {
                                 marginLeft: '30px',
                             }}>
                                 <Typography gutterBottom variant="h5" component="h2">
-                                    Date of Purchase: {date}
+                                    {orderName}
                                 </Typography>
                                 <Typography>
-                                    Total Cost: &#8377;{cost}
-                                </Typography>
-                                <Typography>
-                                    Delivery Address: {address}
+                                    {orderDescription}
                                 </Typography>
                             </CardContent>
-                            <ColorChips status={"D"} sx={{
+                            <ColorChips status={orderStatus} sx={{
                                 flexGrow: 1,
                             }}/>
                         </Card>
@@ -93,12 +91,23 @@ const OrderCard = (props) => {
                         }}>
                             <Button size="medium" sx={{
                                 height: '30px'
-                            }} variant="contained">VIEW ORDER DETAILS</Button>
+                            }} variant="contained">RATE THE PRODUCT</Button>
                             <Button size="medium" sx={{
                                 height: '30px'
                             }} variant="contained">BUY AGAIN</Button>
                         </CardActions>
                     </Paper>
+                    <CardMedia
+                        component="img"
+                        image={image}
+                        alt="random"
+                        sx={{
+                            height: "200px",
+                            width: "200px",
+                            display: 'flex',
+                            alignSelf: 'flex-end'
+                        }}
+                    />
                 </Card>
             </Grid>
         </>
@@ -106,13 +115,12 @@ const OrderCard = (props) => {
 }
 
 
-export default function MyOrders() {
+export default function SellersOrders() {
 
     const [cards, setCards] = useState([])
-    const user = localStorage.getItem('userID')
 
     useEffect(() => {
-		fetch(`http://127.0.0.1:8000/Shopping/MyOrders/${user}/`)
+		fetch('http://127.0.0.1:8000/Products/')
 		.then(res => {
 			return res.json() 
 		})
@@ -134,13 +142,14 @@ export default function MyOrders() {
                         boxShadow: '6px 6px 5px rgba(0, 0, 0, 0.3)',
                         width: '55%',
                         marginX: 'auto',
-                        paddingX: '200px',
                         fontWeight: 'bold',
                         fontSize: '45px',
                         marginTop: '20px'
                     }}
                 >
-                    MY PAST ORDERS
+                    <Typography gutterBottom variant="h4" component="h2" sx={{
+						marginX: 'auto',
+					}}>ORDERS</Typography>
                 </Box>
                 <Container sx={{
                     py: 3,
@@ -149,11 +158,12 @@ export default function MyOrders() {
                     <Grid container spacing={4}>
                         {cards.map((card) => (
                             <OrderCard
-                                cost = {card.total_cost}
-                                address = {card.deliveryaddress}
-                                date = {card.order_date}
-                                items = {card.order_items}
-                                key = {card.id}
+                                name={card.name}
+                                description={card.description}
+                                quantity={card.quantity}
+                                key={card.key}
+                                status={card.status}
+                                image={card.image}
                             />
                         ))}
                     </Grid>

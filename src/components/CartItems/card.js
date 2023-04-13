@@ -12,7 +12,7 @@ import axios from 'axios'
 
 export default function CartCard(props) {
 
-    const {productName, description, quantity, price, cartItemId, totalq, id, list, setList, image, sum, setSum, init} = props;
+    const {productName, description, quantity, price, cartItemId, totalq, id, list, setList, image, sum, setSum, dict} = props;
     
     const getTotalPrice = (quantity, price) => {
         return quantity*price;
@@ -29,7 +29,6 @@ export default function CartCard(props) {
         }))
         setList(newList);
     }
-
 
     return (
         <Card sx={{ 
@@ -67,8 +66,9 @@ export default function CartCard(props) {
                             totalq={totalq}
                             sum={sum}
                             setSum={setSum}
-                            init = {init}
                             cartItemID = {cartItemId}
+							dict = {dict}
+							id = {id}
                         />
                         <Button variant="outlined" onClick={removeItemFromList} sx={{
                             marginLeft: '20px',
