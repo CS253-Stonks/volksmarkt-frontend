@@ -17,7 +17,6 @@ const TotalPrice = (props) => {
 }
 
 
-
 const ShoppingCart = () => {
 
 	const history = useHistory()
@@ -26,6 +25,7 @@ const ShoppingCart = () => {
 	const [cart, setCart] = useState([])
 
 	var dict = {}
+	var user = 3
 	
 	const handleOrder = (e) =>{
 		console.log(e)
@@ -35,7 +35,7 @@ const ShoppingCart = () => {
 
 	useEffect(() => {
 		const foo = async () => {
-			const data = await (await fetch('http://127.0.0.1:8000/Shopping/Cart/2/')).json()
+			const data = await (await fetch(`http://127.0.0.1:8000/Shopping/Cart/${user}/`)).json()
 			const tempList = await Promise.all(data.map(async (cartItem) => (await (await fetch(`http://127.0.0.1:8000/Products/${cartItem.product}/`)).json())))
 			setCart(data)
 			setList(tempList)

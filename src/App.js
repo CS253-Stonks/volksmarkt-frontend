@@ -13,7 +13,6 @@ import ForgotPassword from './components/SignInSignUp/ForgotPassword';
 import SellerForgotPassword from './components/SellerSignInSignUp/SellerForgotPassword';
 import MyOrders from './components/Orders/MyOrders';
 import UserDashboard from './components/Dashboard/UserDashboard';
-
 function App() {
 	return (
 		<>

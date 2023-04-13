@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useHistory, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -44,7 +45,9 @@ function SignIn() {
     axios.post("http://127.0.0.1:8000/buyer/login/", data).then(
       (res) => {
         if(res.data['isAuthenticated']){
-            alert("Welcome " + res.data['firstName']);
+            console.log(res.data)
+            alert("Welcome " + res.data['user']);
+            localStorage.setItem('user',res.data['user']);
         }
         else{
           alert("Login fail");

@@ -8,6 +8,7 @@ import GroupedButtons from './GroupedButtons';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
+import axios from 'axios'
 
 export default function CartCard(props) {
 
@@ -20,6 +21,8 @@ export default function CartCard(props) {
     const [totalPrice, setTotalPrice] = useState(getTotalPrice(quantity, price));
 
     const removeItemFromList = (e) => {
+
+        axios.delete(`http://127.0.0.1:8000/Shopping/Cart/${id}/`)
         
         const newList = (list.filter((item) => {
             return item.id !== id;

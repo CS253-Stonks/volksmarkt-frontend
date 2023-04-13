@@ -15,6 +15,7 @@ import GroupedButton from './GroupedButton'
 import { useState, useEffect } from "react" 
 import { CardActionArea } from '@mui/material' 
 import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 const theme = createTheme() 
 
@@ -28,6 +29,7 @@ const ProductCard = (props) => {
 	const [productQuantity, setProductQuantity] = useState(card.quantity) 
 	const productID = card.id 
 	const [quantityToBuy, setQuantityToBuy] = useState(0)
+	const user = 3
 
 	const [state, setState] = React.useState({
         top: false,
@@ -49,11 +51,18 @@ const ProductCard = (props) => {
 	
 	
 	const resetQuantity = (e) => {
+		const cartItem = {
+			product: productID,
+			buyer: user,
+			quantity: quantityToBuy
+		}
+		axios.post(`http://127.0.0.1:8000/Shopping/Cart/${user}/`, cartItem)
+		
 		console.log(anchor)
 		toggleDrawer(anchor, false)(e)
 		if (!quantityToBuy) return 
 		console.log(quantityToBuy + ' Items added') 
-		setQuantityToBuy(0) 
+		setQuantityToBuy(0)
 	}
 
 	
