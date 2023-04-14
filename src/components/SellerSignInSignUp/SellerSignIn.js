@@ -33,7 +33,11 @@ const theme = createTheme();
 function SellerSignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
+  
+  const isInvalidEmail = () => {
+    if(email.length === 0) return false;
+    return !String(email).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData();
@@ -92,6 +96,8 @@ function SellerSignIn() {
               autoComplete="email"
               autoFocus
               onChange={(e) => setEmail(e.target.value)}
+              error={isInvalidEmail()}
+              helperText={isInvalidEmail()?"Invalid Email":""}
             />
             <TextField
               margin="normal"

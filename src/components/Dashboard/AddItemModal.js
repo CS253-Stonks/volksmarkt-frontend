@@ -23,6 +23,12 @@ export default function FormDialog(props) {
     const [quantity, setQuantity] = useState('') 
     const [image, setImage] = useState(null) 
 
+    const isInvalidInteger = () => {
+        if(price.length === 0) return false;
+        for(var c of price) if(c < '0' || c > '9') return true;
+        return false;
+    }
+
     const handleClickOpen = () => {
         setOpen(true)  
     }  
@@ -120,6 +126,8 @@ export default function FormDialog(props) {
                         type="text"
                         fullWidth
                         variant="standard"
+                        error={isInvalidInteger()}
+                        helperText={isInvalidInteger()?"Invalid Number":""}
                     />
                     <InputLabel htmlFor="image" onClick={(e) => (e.preventDefault())} sx={{
                         marginTop: '10px'
