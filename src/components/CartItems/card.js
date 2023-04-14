@@ -22,6 +22,8 @@ export default function CartCard(props) {
 
     const removeItemFromList = (e) => {
 
+        setSum(sum - totalPrice)
+        setTotalPrice(0)
         axios.delete(`http://127.0.0.1:8000/Shopping/CartItem/${cartItemId}/`)
         
         const newList = (list.filter((item) => {

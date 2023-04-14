@@ -58,18 +58,22 @@ function ComplexGrid(props) {
 								{product.description}
 							</Typography>
 						</Grid>
-						<Grid item>
-						<FormDialog1 item={product} flag={flag} setFlag={setFlag} />
-						<Button 
-							variant="outlined"  
-							sx={{
-                            	marginLeft: '5px',
-                            	height: '30px'
-                        	}}
-							onClick={deleteItem}
-						>
-                            REMOVE ITEM
-                        </Button>
+						<Grid item sx={{
+							display: 'flex',
+							flexDirection: 'row',
+							paddingTop: 0,
+						}}>
+							<FormDialog1 item={product} flag={flag} setFlag={setFlag} />
+							<Button 
+								variant="outlined"  
+								sx={{
+									marginLeft: '20px',
+									height: '30px',
+								}}
+								onClick={deleteItem}
+							>
+								REMOVE ITEM
+							</Button>
 						</Grid>
 					</Grid>
 					<Grid item marginLeft={4}>

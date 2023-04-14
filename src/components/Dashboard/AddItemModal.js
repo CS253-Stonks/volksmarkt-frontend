@@ -4,6 +4,7 @@ import Input from '@mui/material/Input'
 import InputLabel from '@mui/material/InputLabel'  
 import TextField from '@mui/material/TextField'  
 import Dialog from '@mui/material/Dialog'  
+import {Card, Container, Grid} from '@mui/material'  
 import DialogActions from '@mui/material/DialogActions'  
 import DialogContent from '@mui/material/DialogContent'  
 import DialogContentText from '@mui/material/DialogContentText'  
@@ -66,13 +67,20 @@ export default function FormDialog(props) {
     }  
 
     return (
-        <div>
+        <Grid sx={{
+            height: '100px',
+            width: '800px',
+            marginX: 'auto',
+            marginY: '20px',
+            paddingLeft: '350px',
+            paddingTop: '20px'
+        }}>
             <Button 
                 variant="outlined" 
                 onClick={handleClickOpen}
                 sx = {{ 
+                    marginY: 'auto',
                     marginX: 'auto',
-                    marginBottom: 3 
                 }}
             >
                 ADD AN ITEM
@@ -140,10 +148,12 @@ export default function FormDialog(props) {
                     }} fullWidth />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>CANCEL</Button>
-                    <Button onClick={addItem}>ADD</Button>
+                    <Grid>
+                        <Button onClick={handleClose} sx={{}}>CANCEL</Button>
+                        <Button onClick={addItem}>ADD</Button>
+                    </Grid>
                 </DialogActions>
             </Dialog>
-        </div>
+        </Grid>
     )  
 }

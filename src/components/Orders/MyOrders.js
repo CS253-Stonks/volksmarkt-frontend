@@ -239,7 +239,6 @@ const OrderCard = (props) => {
                     <CardMedia
                         component="img"
                         image={"http://127.0.0.1:8000" + rep.product.image}
-                        alt="random"
                         sx={{
                             height: "200px",
                             width: "200px",
