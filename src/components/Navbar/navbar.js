@@ -46,6 +46,12 @@ function NavBar() {
 			localStorage.removeItem('last_name')
 			history.push('/')
 		}
+		else if(text === 'Home'){
+			history.push('/')
+		}
+		else if(text === 'My Orders'){
+			history.push('/MyOrders/')
+		}
 	}
 	const [state, setState] = React.useState({
 		top: false,
@@ -70,7 +76,7 @@ function NavBar() {
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
 			<List>
-				{['Home', 'My Orders', 'Catalogue', 'Cart'].map((text, index) => (
+				{['Home', 'My Orders', 'Cart', 'Log Out'].map((text, index) => (
 					<ListItem key={text} disablePadding>
 						<ListItemButton onClick={() => openSide(text)}>
 							<ListItemIcon>
@@ -82,7 +88,7 @@ function NavBar() {
 				))}
 			</List>
 			<Divider />
-			<List>
+			{/* <List>
 				{['Log Out'].map((text, index) => (
 					<ListItem key={text} disablePadding>
 						<ListItemButton>
@@ -96,7 +102,7 @@ function NavBar() {
 						</ListItemButton>
 					</ListItem>
 				))}
-			</List>
+			</List> */}
 		</Box>
 	)
 
