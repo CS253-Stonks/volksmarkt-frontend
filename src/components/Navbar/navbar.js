@@ -121,8 +121,6 @@ function NavBar() {
 		history.push('/MyOrders');
 	}
 	const RightSide = (type) => {
-		console.log('local')
-		console.log(localStorage.getItem('first_name'));
 		if(localStorage.getItem('first_name') === null){
 			if(type === 'Seller'){
 				return (
