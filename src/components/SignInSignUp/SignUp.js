@@ -39,6 +39,7 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [address, setAddress] = useState('')
+  const history = useHistory();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData();
@@ -48,8 +49,8 @@ function SignUp() {
     data.append('email',email);
     data.append('password',password);
     axios.post('http://127.0.0.1:8000/buyer/register/',data).then((res) => console.log(res));
+    history.push('/SignIn/')
   };
-  const history = useHistory();
   const moveToSignIn = () => {
     history.push('/SignIn/')
   }
