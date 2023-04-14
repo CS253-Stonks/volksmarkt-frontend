@@ -18,6 +18,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import { InputLabel } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
+import axios from 'axios';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -34,23 +35,44 @@ function Copyright(props) {
 const theme = createTheme();
 
 function SellerSignUp() {
+  const history = useHistory();
+  const [category, setCategory] = React.useState('');
+  const [number, setNumber] = useState('');
+  const [email, setEmail] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [address, setAddress] = useState('')
+  const [shopName, setShopName] = useState('')
+  const [password, setPassword] = useState('')
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    const data = new FormData();
+    data.append('first_name', firstName)
+    data.append('last_name', lastName)
+    data.append('shop_name', shopName)
+    data.append('contact', number)
+    data.append('category', category)
+    data.append('email', email)
+    data.append('password', password)
+    data.append('address', address)
+		axios.post('http://127.0.0.1:8000/seller/register/', data).then((res) => {
+      console.log(res.data['isCreated'])
+      if(!res.data['isCreated']) alert('Registration failed')
+      else history.push('/Seller/SignIn/')
     });
   };
-  const [category, setCategory] = React.useState('');
+  const isInvalidNumber = () => {
+    if(number.length === 0) return false;
+    if(number.length !== 10) return true;
+    for(var c of number){
+      if(c < '0' || c > '9') return true;
+    }
+    return false;
+  }
 
   const handleChange = (event) => {
     setCategory(event.target.value);
   };
-  const history = useHistory();
-  const moveToSignIn = () => {
-    history.push('/seller/SignIn');
-  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -80,6 +102,7 @@ function SellerSignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -90,6 +113,7 @@ function SellerSignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  onChange={(e) => setLastName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -100,6 +124,7 @@ function SellerSignUp() {
                   label="Shop Name"
                   name="shopName"
                   autoComplete="shopName"
+                  onChange={(e) => setShopName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -110,6 +135,20 @@ function SellerSignUp() {
                   label="Address"
                   name="address"
                   autoComplete="address"
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  value={number}
+                  onChange={(e) => setNumber(e.target.value)}
+                  error={isInvalidNumber()}
+                  id="contact"
+                  label="Contact"
+                  name="contact"
+                  autoComplete="contact"
                 />
               </Grid>
               <div>
@@ -121,7 +160,7 @@ function SellerSignUp() {
                     labelId="demo-simple-select-autowidth-label"
                     id="demo-simple-select-autowidth"
                     value={category}
-                    onChange={handleChange}
+                    onChange={(e) => setCategory(e.target.value)}
                     autoWidth
                     label="Category"
                   >
@@ -146,6 +185,7 @@ function SellerSignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -157,6 +197,7 @@ function SellerSignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -171,13 +212,13 @@ function SellerSignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={moveToSignIn}
+              // onClick={moveToSignIn}
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="" variant="body2" onClick={moveToSignIn}>
+                <Link href="" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

@@ -15,7 +15,6 @@ import MyOrders from './components/Orders/MyOrders';
 import UserDashboard from './components/Dashboard/UserDashboard';
 import SellersOrders from './components/Orders/SellersOrders';
 
-
 function App() {
 	
 	return (
