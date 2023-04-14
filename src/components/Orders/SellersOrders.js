@@ -7,58 +7,163 @@ import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
 import { useEffect, useState } from 'react';
-
-const ColorChips = (props) => {
-
-    if(props.status === "OFD"){
-        return (
-            <Stack spacing={1} alignItems="center" sx={{
-                marginRight: '50px',
-            }}>
-                <Chip sx={{
-                    marginY: 'auto',
-                }} label="Status: Out For Delivery" color="primary" variant='outlined' />
-            </Stack>
-        );
-    }
-    else{
-        return (
-            <Stack spacing={1} alignItems="center" sx={{
-                marginRight: '50px',
-            }}>
-                <Chip sx={{
-                    marginY: 'auto',
-                }} label="Status: Delivered" color="success" variant='outlined' />
-            </Stack>
-        );
-    }
-}
-
 
 const theme = createTheme();
 
 
+const OrderItem = (props) => {
+
+    const {prop} = props
+
+    return (
+        <Grid item id={prop.id} xs={12} sx={{
+            marginY: '20px',
+
+        }}>
+            <Card
+                sx={{ height: '200px', display: 'flex', flexDirection: 'row' , borderRadius: '15px'}}
+            >
+                <Paper sx={{
+                    marginRight: 'auto',
+                    boxShadow: 'none',
+                }}>
+                    <Card sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        boxShadow: 'none',
+                        width: '100%'
+                    }}>
+                        <CardContent sx={{
+                            flexGrow: 1,
+                            marginTop: '20px',
+                            marginLeft: '30px',
+                        }}>
+                            <Typography gutterBottom variant="h5" component="h2">
+                                {prop.product.name}
+                            </Typography>
+                            <Typography gutterBottom variant="h5" component="h2">
+                                {prop.product.price}
+                            </Typography>
+                            <Typography gutterBottom variant="h5" component="h2">
+                                {prop.quantity}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </Paper>
+                <CardMedia
+                    component="img"
+                    image={"http://127.0.0.1:8000" + prop.product.image}
+                    sx={{
+                        height: "200px",
+                        width: "200px",
+                        display: 'flex',
+                        alignSelf: 'flex-end'
+                    }}
+                />
+            </Card>
+        </Grid>
+    )
+
+}
+
+
 const OrderCard = (props) => {
 
-    const orderName = props.name;
-    const orderDescription = props.description;
-    const orderKey = props.id;
-    const orderStatus = props.status;
-    const image = props.image;
+    const {data} = props
+    // console.log(props)
+
+
+	const [state, setState] = React.useState({
+        top: false,
+        left: false,
+        bottom: false,
+        right: false,
+    }) 
+
+    const toggleDrawer = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+			return 
+        }
+
+        setState({ ...state, [anchor]: open }) 
+    } 
+
+	const anchor = 'right'
+	
+    const sidedrawer = (anchor) => (
+
+		<Box sx={{
+            width: '600px',
+        }}>
+			<Box
+				sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 500 }}
+				role="presentation"
+				onClick={toggleDrawer(anchor, false)}
+				onKeyDown={toggleDrawer(anchor, false)}
+			>
+			</Box>
+            <Box sx={{
+				display: 'flex',
+				flexDirection: 'column',
+                marginX: '40px',
+                marginY: '30px',
+                padding: '20px',
+                borderBottom: '3px solid black'
+			}}>
+                <Typography gutterBottom variant="h5" component="h2" sx={{marginX: 'auto'}}>
+                    ORDER DETAILS
+                </Typography>
+                <Typography gutterBottom variant="h5" component="h2" sx={{marginX: 'auto'}}>
+                    Date Of Purchase: {props.data.order_date}
+                </Typography>
+            </Box>
+
+			<Grid sx={{
+                display: 'flex',
+				flexDirection: 'column',
+                marginX: '40px',
+                marginY: '30px'
+			}}>
+                {
+                    props.data.order_items.map((item) => (
+                        <OrderItem prop={item} key={item}/>
+                    ))
+                }
+			</Grid>
+
+            <Box sx={{
+				display: 'flex',
+				flexDirection: 'column',
+                marginX: '40px',
+                marginY: '30px',
+                padding: '20px',
+                borderTop: '3px solid black'
+			}}>
+                
+                <Typography gutterBottom variant="h5" component="h2" sx={{
+                    marginLeft: 'auto', 
+                    marginRight: 0,
+                }}>
+                    Total:  &#8377;{props.data.total_cost}
+                </Typography>
+            </Box>
+
+
+		</Box>
+    ) 
 
     return (
 
         <>
-            <Grid item id={orderKey} xs={12}>
+            <Grid item id={data.id} xs={12}>
                 <Card
-                    sx={{ height: '200px', display: 'flex', flexDirection: 'row' }}
+                    sx={{ height: '200px', display: 'flex', flexDirection: 'row', paddingBottom: '0'}}
                 >
                     <Paper sx={{
                         marginRight: 'auto',
@@ -68,38 +173,39 @@ const OrderCard = (props) => {
                             display: 'flex',
                             flexDirection: 'row',
                             boxShadow: 'none',
-                            width: '650px'
+                            width: '650px',
+                            paddingBottom: 0
                         }}>
                             <CardContent sx={{
                                 flexGrow: 1,
                                 marginTop: '20px',
                                 marginLeft: '30px',
+                                paddingBottom: '20px'
                             }}>
                                 <Typography gutterBottom variant="h5" component="h2">
-                                    {orderName}
+                                    Date: {data.order_date}
                                 </Typography>
                                 <Typography>
-                                    {orderDescription}
+                                    Cost: &#8377; {data.total_cost}
+                                </Typography>
+                                <Typography>
+                                    Address: {data.deliveryaddress}
                                 </Typography>
                             </CardContent>
-                            <ColorChips status={orderStatus} sx={{
-                                flexGrow: 1,
-                            }}/>
                         </Card>
                         <CardActions sx={{
                             marginLeft: '40px',
+                            marginTop: 0,
+                            paddingTop: 0
                         }}>
-                            <Button size="medium" sx={{
+                            <Button size="medium" onClick={toggleDrawer(anchor, true)} sx={{
                                 height: '30px'
-                            }} variant="contained">RATE THE PRODUCT</Button>
-                            <Button size="medium" sx={{
-                                height: '30px'
-                            }} variant="contained">BUY AGAIN</Button>
+                            }} variant="contained">VIEW ORDER DETAILS</Button>
                         </CardActions>
                     </Paper>
                     <CardMedia
                         component="img"
-                        image={image}
+                        image={"http://127.0.0.1:8000" + data.order_items[0].product.image}
                         alt="random"
                         sx={{
                             height: "200px",
@@ -109,6 +215,13 @@ const OrderCard = (props) => {
                         }}
                     />
                 </Card>
+                <Drawer
+                    anchor={anchor}
+                    open={state[anchor]}
+                    onClose={toggleDrawer(anchor, false)}
+                    >
+                        {sidedrawer(anchor)}
+                </Drawer>
             </Grid>
         </>
     )
@@ -120,14 +233,14 @@ export default function SellersOrders() {
     const [cards, setCards] = useState([])
 
     useEffect(() => {
-		fetch('http://127.0.0.1:8000/Products/')
+		fetch(`http://127.0.0.1:8000/Shopping/MyDeliveries/${2}/`)
 		.then(res => {
 			return res.json() 
 		})
 		.then(data => {
 			setCards(data) 
 		})
-	}, []) 
+	}, [])
 
     return (
         <ThemeProvider theme={theme}>
@@ -147,9 +260,16 @@ export default function SellersOrders() {
                         marginTop: '20px'
                     }}
                 >
-                    <Typography gutterBottom variant="h4" component="h2" sx={{
-						marginX: 'auto',
-					}}>ORDERS</Typography>
+                    <Typography gutterBottom variant="h4" component="h1" sx={{
+                        marginX: 'auto',
+                        fontWeight: 'bold',
+                        fontSize: '45px',
+                    }}>
+                        <Container sx={{
+                            marginX: 'auto',
+                            textAlign: 'center',
+                        }}>ORDERS</Container>
+                    </Typography>
                 </Box>
                 <Container sx={{
                     py: 3,
@@ -158,12 +278,8 @@ export default function SellersOrders() {
                     <Grid container spacing={4}>
                         {cards.map((card) => (
                             <OrderCard
-                                name={card.name}
-                                description={card.description}
-                                quantity={card.quantity}
-                                key={card.key}
-                                status={card.status}
-                                image={card.image}
+                                data = {card}
+                                key = {card.id}
                             />
                         ))}
                     </Grid>
