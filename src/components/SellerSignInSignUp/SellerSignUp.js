@@ -13,6 +13,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useHistory, withRouter } from 'react-router-dom';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { useState } from 'react';
+import { InputLabel } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -36,6 +41,11 @@ function SellerSignUp() {
       email: data.get('email'),
       password: data.get('password'),
     });
+  };
+  const [category, setCategory] = React.useState('');
+
+  const handleChange = (event) => {
+    setCategory(event.target.value);
   };
   const history = useHistory();
   const moveToSignIn = () => {
@@ -82,6 +92,52 @@ function SellerSignUp() {
                   autoComplete="family-name"
                 />
               </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="shopName"
+                  label="Shop Name"
+                  name="shopName"
+                  autoComplete="shopName"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="address"
+                  label="Address"
+                  name="address"
+                  autoComplete="address"
+                />
+              </Grid>
+              <div>
+                <FormControl sx={{ m: 2, minWidth: 360 }} required>
+                  <InputLabel id="demo-simple-select-autowidth-label">Category</InputLabel>
+                  <Select
+                    required
+                    fullWidth
+                    labelId="demo-simple-select-autowidth-label"
+                    id="demo-simple-select-autowidth"
+                    value={category}
+                    onChange={handleChange}
+                    autoWidth
+                    label="Category"
+                  >
+                    <MenuItem value={'Electronics'}>Electronics</MenuItem>
+                    <MenuItem value={'Medical'}>Medical</MenuItem>
+                    <MenuItem value={'Stationary'}>Stationary</MenuItem>
+                    <MenuItem value={'Print'}>Print</MenuItem>
+                    <MenuItem value={'General Store'}>General Store</MenuItem>
+                    <MenuItem value={'Grocery'}>Grocery</MenuItem>
+                    <MenuItem value={'Books'}>Books</MenuItem>
+                    <MenuItem value={'Food'}>Food</MenuItem>
+                    <MenuItem value={'Others'}>Others</MenuItem>
+
+                  </Select>
+                </FormControl>
+              </div>
               <Grid item xs={12}>
                 <TextField
                   required
