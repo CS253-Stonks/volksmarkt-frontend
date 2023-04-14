@@ -32,47 +32,47 @@ function Copyright(props) {
 const theme = createTheme();
 
 function SignIn() {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const history = useHistory();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData();
-    data.append('username', email)
-    data.append('password', password);
-    console.log(email);
-    console.log(password);
-    console.log(data);
-    axios.post("http://127.0.0.1:8000/buyer/login/", data).then(
-      (res) => {
-        console.log(res.data);
-        if(res.data['isAuthenticated']){
-            console.log(res.data)
-            // alert("Welcome " + res.data['firstName']);
-            localStorage.setItem('userID', res.data['id']);
-            localStorage.setItem('first_name', res.data['firstName'])
-            localStorage.setItem('last_name', res.data['lastName'])
-            console.log(localStorage.getItem('first_name'));
-        }
-        else{
-          alert("Login fail");
-        }
-      }
-    )
-    history.push('/');
-  };
-  const goToSignUp = () => {
-    history.push('/SignUp')
-  }
-  const goToforgot_password = () => {
-    history.push('/forgotPassword')
-  }
-  const returnHome = () => {
-    history.push('/')
-  }
-  const goToUserDashboard = () => {
-    history.push('/UserDashboard')
-  }
+	const [email, setEmail] = React.useState('');
+	const [password, setPassword] = React.useState('');
+	const history = useHistory();
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		const data = new FormData();
+		data.append('username', email)
+		data.append('password', password);
+		console.log(email);
+		console.log(password);
+		console.log(data);
+		axios.post("http://127.0.0.1:8000/buyer/login/", data).then(
+			(res) => {
+				console.log(res.data);
+				if (res.data['isAuthenticated']) {
+					console.log(res.data)
+					// alert("Welcome " + res.data['firstName']);
+					localStorage.setItem('userID', res.data['id']);
+					localStorage.setItem('first_name', res.data['firstName'])
+					localStorage.setItem('last_name', res.data['lastName'])
+					console.log(localStorage.getItem('first_name'));
+				}
+				else {
+					alert("Login fail");
+				}
+			}
+		)
+		history.push('/');
+	};
+	const goToSignUp = () => {
+		history.push('/SignUp')
+	}
+	const goToforgot_password = () => {
+		history.push('/forgotPassword')
+	}
+	const returnHome = () => {
+		history.push('/')
+	}
+	const goToUserDashboard = () => {
+		history.push('/UserDashboard')
+	}
 
 	return (
 		<ThemeProvider theme={theme}>

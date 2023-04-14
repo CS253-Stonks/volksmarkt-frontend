@@ -37,7 +37,21 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 function NavBar() {
 	const history = useHistory();
 	const openSide = (text) => {
+		console.log("openside")
+		console.log(text);
 		if(text === 'Cart') history.push('/cart/')
+		else if(text === 'Log Out'){
+			console.log("there")
+			localStorage.removeItem('first_name')
+			localStorage.removeItem('last_name')
+			history.push('/')
+		}
+		else if(text === 'Home'){
+			history.push('/')
+		}
+		else if(text === 'My Orders'){
+			history.push('/MyOrders/')
+		}
 	}
 	const [state, setState] = React.useState({
 		top: false,
@@ -62,7 +76,7 @@ function NavBar() {
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
 			<List>
-				{['Home', 'My Orders', 'Catalogue', 'Cart'].map((text, index) => (
+				{['Home', 'My Orders', 'Cart', 'Log Out'].map((text, index) => (
 					<ListItem key={text} disablePadding>
 						<ListItemButton onClick={() => openSide(text)}>
 							<ListItemIcon>
@@ -74,18 +88,21 @@ function NavBar() {
 				))}
 			</List>
 			<Divider />
-			<List>
+			{/* <List>
 				{['Log Out'].map((text, index) => (
 					<ListItem key={text} disablePadding>
 						<ListItemButton>
-							<ListItemIcon>
+							<ListItemIcon onClick={() => {
+								console.log("called")
+								openSide(text)
+							}}>
 								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
 							</ListItemIcon>
 							<ListItemText primary={text} />
 						</ListItemButton>
 					</ListItem>
 				))}
-			</List>
+			</List> */}
 		</Box>
 	)
 
@@ -177,8 +194,8 @@ function NavBar() {
 								Sign Up
 							</Typography>
 							<CartButton />
-							
-							<Button color="inherit" onClick={handleLogin} sx={{ marginX: 2 }}>Login</Button>
+							{RightSide('buyer')}
+							{/* <Button color="inherit" onClick={handleLogin} sx={{ marginX: 2 }}>Login</Button> */}
 						</Route>
 						<Route exact path='/seller/SignIn'>
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -189,14 +206,15 @@ function NavBar() {
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 								Seller Sign Up
 							</Typography>
-
-							<Button color="inherit" onClick={handleLoginSeller} sx={{ marginX: 2 }}>Login</Button>
+							{RightSide('Seller')}
+							{/* <Button color="inherit" onClick={handleLoginSeller} sx={{ marginX: 2 }}>Login</Button> */}
 						</Route>
 						<Route exact path='/seller/'>
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 								Seller Dashboard
 							</Typography>
-							<Button color="inherit" onClick={handleLoginSeller} sx={{ marginX: 2 }}>Login</Button>
+							{RightSide('Seller')}
+							{/* <Button color="inherit" onClick={handleLoginSeller} sx={{ marginX: 2 }}>Login</Button> */}
 						</Route>
 						<Route path='/'>
 							{heading}
