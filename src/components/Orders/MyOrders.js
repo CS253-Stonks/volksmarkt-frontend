@@ -108,6 +108,7 @@ const OrderCard = (props) => {
 
         setState({ ...state, [anchor]: open }) 
     } 
+    console.log(props)
 
 	const anchor = 'right'
     const [rep, setRep] = useState({product:{image: "https://source.unsplash.com/random"}})

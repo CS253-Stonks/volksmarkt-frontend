@@ -22,6 +22,7 @@ export default function FormDialog1(props) {
     const [price, setPrice] = useState('') 
     const [quantity, setQuantity] = useState('') 
     const [image, setImage] = useState(null) 
+	const shop = localStorage.getItem('shopID')
 
     const handleClickOpen = () => {
         setOpen(true) 
@@ -39,7 +40,7 @@ export default function FormDialog1(props) {
             description: description,
             price: price,
             quantity: quantity,
-            store: 1,
+            store: shop,
             image: image
         }
         axios.put(`http://127.0.0.1:8000/Products/${Product.id}/`, Product, {

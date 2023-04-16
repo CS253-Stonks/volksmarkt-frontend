@@ -23,6 +23,7 @@ export default function FormDialog(props) {
     const [price, setPrice] = useState('')  
     const [quantity, setQuantity] = useState('') 
     const [image, setImage] = useState(null) 
+	const shop = localStorage.getItem('shopID')
 
     const isInvalidInteger = () => {
         if(price.length === 0) return false;
@@ -42,6 +43,7 @@ export default function FormDialog(props) {
         setOpen(false)  
     }  
 
+    console.log(shop)
     const submitHandler = (e) => {
         e.preventDefault()  
         const product={
@@ -49,10 +51,10 @@ export default function FormDialog(props) {
             description: description,
             price: price,
             quantity: quantity,
-            store: 1,
+            store: shop,
             image: image
         }
-        axios.post('http://127.0.0.1:8000/Products/', product, {
+        axios.post(`http://127.0.0.1:8000/Products/`, product, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },

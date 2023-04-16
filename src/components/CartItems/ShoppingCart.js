@@ -68,7 +68,7 @@ const ShoppingCart = () => {
 
 		console.log(newList)
 
-		axios.post(`http://127.0.0.1:8000/Shopping/PlaceOrder/${user}/`, z, {})
+		axios.post(`http://127.0.0.1:8000/Shopping/PlaceOrder/${user}/`, z)
 
 		alert('Order Placed')
 		history.push('/')

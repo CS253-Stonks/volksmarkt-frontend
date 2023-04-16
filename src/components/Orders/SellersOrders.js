@@ -231,9 +231,10 @@ const OrderCard = (props) => {
 export default function SellersOrders() {
 
     const [cards, setCards] = useState([])
+    const shop = localStorage.getItem('shopID')
 
     useEffect(() => {
-		fetch(`http://127.0.0.1:8000/Shopping/MyDeliveries/${2}/`)
+		fetch(`http://127.0.0.1:8000/Shopping/MyDeliveries/${shop}/`)
 		.then(res => {
 			return res.json() 
 		})

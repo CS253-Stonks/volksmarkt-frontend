@@ -45,7 +45,7 @@ function ComplexGrid(props) {
 			<Grid container spacing={2} width={800}>
 				<Grid item>
 					<ButtonBase sx={{ width: 128, height: 128 }}>
-						<Img alt="complex" src={product.image} />
+						<Img alt="complex" src={"http://127.0.0.1:8000" + product.image} />
 					</ButtonBase>
 				</Grid>
 				<Grid item xs={12} sm container>
@@ -92,11 +92,11 @@ function SellerDashboard() {
 
 	const foo = [] 
 	const [itemList, setItemList] = useState(foo) 
-
+	const shop = localStorage.getItem('shopID')
 	const [flag, setFlag] = useState(false) 
 
 	useEffect(() => {
-		fetch('http://127.0.0.1:8000/Products/')
+		fetch(`http://127.0.0.1:8000/Stores/${shop}/productlist/`)
 		.then(res => {
 			return res.json() 
 		})

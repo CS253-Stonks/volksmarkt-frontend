@@ -120,23 +120,33 @@ function NavBar() {
 	const moveToMyOrders = () => {
 		history.push('/MyOrders');
 	}
+	const moveToSellersOrders = () => {
+		history.push('/SellersOrders');
+	}
 	const RightSide = (type) => {
-		if(localStorage.getItem('first_name') === null){
-			if(type === 'Seller'){
+		if(type === 'Seller'){
+			if(localStorage.getItem('seller_first_name')===null){
 				return (
 					<Button color="inherit" onClick={handleLoginSeller} sx={{ marginX: 2 }}>Login</Button>
 				)
 			}
 			else{
 				return (
-					<Button color="inherit" onClick={handleLogin} sx={{ marginX: 2 }}>Login</Button>
+					<Button color="inherit" onClick = {moveToSellersOrders} sx={{ marginX: 2 }}>{localStorage.getItem('seller_first_name') + ' ' + localStorage.getItem('seller_last_name')}</Button>
 				)
 			}
 		}
 		else{
-			return (
-				<Button color="inherit" onClick = {moveToMyOrders} sx={{ marginX: 2 }}>{localStorage.getItem('first_name') + ' ' + localStorage.getItem('last_name')}</Button>
-			)
+			if(localStorage.getItem('first_name')===null){
+				return (
+					<Button color="inherit" onClick={handleLogin} sx={{ marginX: 2 }}>Login</Button>
+				)
+			}
+			else{
+				return (
+					<Button color="inherit" onClick = {moveToMyOrders} sx={{ marginX: 2 }}>{localStorage.getItem('first_name') + ' ' + localStorage.getItem('last_name')}</Button>
+				)
+			}
 		}
 	}
 	const CartButton = () => {
