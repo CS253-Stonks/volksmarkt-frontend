@@ -189,7 +189,7 @@ function NavBar() {
 	const Wallet = () => {
 		if(location.pathname.toLowerCase().includes('seller')){
 			if(localStorage.getItem('seller_first_name') === null){
-				return <Button color="inherit" sx={{ marginX: 2 }}><WalletIcon /> 0</Button>
+				return <Button color="inherit" sx={{ marginX: 2 }}><WalletIcon /></Button>
 			}
 			else{
 				return <Button color="inherit" sx={{ marginX: 2 }}><WalletIcon /> {localStorage.getItem('sellerWallet')}</Button>
@@ -197,7 +197,7 @@ function NavBar() {
 		}
 		else{
 			if(localStorage.getItem('first_name') === null){
-				return <Button color="inherit" sx={{ marginX: 2 }}><WalletIcon /> 0</Button>
+				return <Button color="inherit" sx={{ marginX: 2 }}><WalletIcon /></Button>
 			}
 			else{
 				return <Button color="inherit" sx={{ marginX: 2 }}><WalletIcon /> {localStorage.getItem('userWallet')}</Button>
