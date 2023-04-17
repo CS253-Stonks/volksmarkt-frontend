@@ -19,6 +19,8 @@ import { useState } from 'react';
 import { InputLabel } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import axios from 'axios';
+import Input from '@mui/material/Input' 
+
 function Copyright(props) {
 	return (
 		<Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -44,6 +46,7 @@ function SellerSignUp() {
 	const [address, setAddress] = useState('')
 	const [shopName, setShopName] = useState('')
 	const [password, setPassword] = useState('')
+	const [image, setImage] = useState(null) 
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -56,7 +59,12 @@ function SellerSignUp() {
 		data.append('email', email)
 		data.append('password', password)
 		data.append('address', address)
-		axios.post('http://127.0.0.1:8000/seller/register/', data).then((res) => {
+		data.append('image', image)
+		axios.post('http://127.0.0.1:8000/seller/register/', data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        }).then((res) => {
 			console.log(res.data)
 			if (!res.data['isCreated']){
 				alert('Registration failed')
@@ -156,7 +164,7 @@ function SellerSignUp() {
 									helperText={isInvalidNumber() ? "Invalid Number" : ""}
 								/>
 							</Grid>
-							<div>
+							<Grid>
 								<FormControl sx={{ m: 2, minWidth: 360 }} required>
 									<InputLabel id="demo-simple-select-autowidth-label">Category</InputLabel>
 									<Select
@@ -181,7 +189,7 @@ function SellerSignUp() {
 
 									</Select>
 								</FormControl>
-							</div>
+							</Grid>
 							<Grid item xs={12}>
 								<TextField
 									required
@@ -206,6 +214,17 @@ function SellerSignUp() {
 									autoComplete="new-password"
 									onChange={(e) => setPassword(e.target.value)}
 								/>
+							</Grid>
+							<Grid item xs={12}>
+							<InputLabel htmlFor="image" onClick={(e) => (e.preventDefault())} sx={{
+								marginTop: '10px'
+							}}>
+								Upload Shop Image
+							</InputLabel>
+							<Input id="image" name="image" type="file" onChange={(e) => setImage(e.target.files[0])} sx={{
+								marginTop: 0,
+								height: '55px',
+							}} fullWidth />
 							</Grid>
 							<Grid item xs={12}>
 								<FormControlLabel

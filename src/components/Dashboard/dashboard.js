@@ -53,8 +53,7 @@ function StoreCard(props) {
 					<CardMedia
 						component="img"
 						height="140"
-						image={shopImage}
-						alt="green iguana"
+						image={props.image}
 					/>
 					<CardContent>
 						<Typography gutterBottom variant="h5" component="div">
@@ -90,9 +89,9 @@ export default function Dashboard() {
 			<Grid container spacing={5} marginTop={5}>
 
 				{stores ? stores.map((store) => (
-					<StoreCard name={store.name} desc={store.address} key={store.id} id={store.id}/>
+					<StoreCard name={store.name} desc={store.address} key={store.id} id={store.id} image={store.image}/>
 				)) : getStores().map((store) => (
-					<StoreCard name={store.name} desc={store.address} key={store.id} id={store.id}/>
+					<StoreCard name={store.name} desc={store.address} key={store.id} id={store.id} image={store.image}/>
 		  		))}
 			</Grid>
 		</Container>
