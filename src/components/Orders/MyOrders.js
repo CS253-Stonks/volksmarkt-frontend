@@ -107,8 +107,7 @@ const OrderCard = (props) => {
         }
 
         setState({ ...state, [anchor]: open }) 
-    } 
-    console.log(props)
+    }
 
 	const anchor = 'right'
     const [rep, setRep] = useState({product:{image: "https://source.unsplash.com/random"}})
@@ -263,7 +262,7 @@ const OrderCard = (props) => {
 
 export default function MyOrders() {
 
-    const [cards, setCards] = useState([])
+    const [cardss, setCardss] = useState([])
     const user = localStorage.getItem('userID')
 
     useEffect(() => {
@@ -272,9 +271,14 @@ export default function MyOrders() {
 			return res.json() 
 		})
 		.then(data => {
-			setCards(data) 
+			setCardss(data) 
 		})
-	}, []) 
+	}, [])
+
+    const cards = []
+    for(var i = cardss.length-1; i >= 0; i -= 1){
+        cards.push(cardss[i])
+    }
 
     return (
         <ThemeProvider theme={theme}>

@@ -230,7 +230,7 @@ const OrderCard = (props) => {
 
 export default function SellersOrders() {
 
-    const [cards, setCards] = useState([])
+    const [cardss, setCards] = useState([])
     const shop = localStorage.getItem('shopID')
 
     useEffect(() => {
@@ -242,6 +242,11 @@ export default function SellersOrders() {
 			setCards(data) 
 		})
 	}, [])
+
+    const cards = []
+    for(var i = cardss.length-1; i >= 0; i -= 1){
+        cards.push(cardss[i])
+    }
 
     return (
         <ThemeProvider theme={theme}>
@@ -269,7 +274,7 @@ export default function SellersOrders() {
                         <Container sx={{
                             marginX: 'auto',
                             textAlign: 'center',
-                        }}>ORDERS</Container>
+                        }}>PAST ORDERS</Container>
                     </Typography>
                 </Box>
                 <Container sx={{
