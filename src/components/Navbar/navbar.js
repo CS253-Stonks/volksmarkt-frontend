@@ -21,8 +21,11 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import { useLocation } from 'react-router-dom'
-
-
+import { Rule } from '@mui/icons-material'
+import LogoutIcon from '@mui/icons-material/Logout';
+// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import HomeIcon from '@mui/icons-material/Home';
 const StyledBadge = styled(Badge)(({ theme }) => ({
 	'& .MuiBadge-badge': {
 		right: -3,
@@ -35,22 +38,26 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 
 function NavBar() {
+	const location = useLocation();
 	const history = useHistory();
 	const openSide = (text) => {
 		console.log("openside")
 		console.log(text);
-		if(text === 'Cart') history.push('/cart/')
-		else if(text === 'Log Out'){
+		if (text === 'Cart') history.push('/cart/')
+		else if (text === 'Log Out') {
 			console.log("there")
 			localStorage.removeItem('first_name')
 			localStorage.removeItem('last_name')
 			history.push('/')
 		}
-		else if(text === 'Home'){
+		else if (text === 'Home') {
 			history.push('/')
 		}
-		else if(text === 'My Orders'){
+		else if (text === 'My Orders') {
 			history.push('/MyOrders/')
+		}
+		else if(text === 'Order List'){
+			history.push('/SellersOrders/')
 		}
 	}
 	const [state, setState] = React.useState({
@@ -67,28 +74,66 @@ function NavBar() {
 
 		setState({ ...state, [anchor]: open })
 	}
-
-	const list = (anchor) => (
-		<Box
-			sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-			role="presentation"
-			onClick={toggleDrawer(anchor, false)}
-			onKeyDown={toggleDrawer(anchor, false)}
-		>
-			<List>
-				{['Home', 'My Orders', 'Cart', 'Log Out'].map((text, index) => (
-					<ListItem key={text} disablePadding>
-						<ListItemButton onClick={() => openSide(text)}>
-							<ListItemIcon>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItemButton>
-					</ListItem>
-				))}
-			</List>
-			<Divider />
-			{/* <List>
+	const getIcon = (text) => {
+		if(text === 'Log Out'){
+			return (<LogoutIcon />)
+		}
+		else if(text === 'Cart'){
+			return (<ShoppingCartIcon />)
+		}
+		else if(text === 'My Orders' || text === 'Order List'){
+			return (<FormatListBulletedIcon />)
+		}
+		else if(text === 'Home'){
+			return (<HomeIcon />)
+		}
+	}
+	const list = (anchor) => {
+		if (location.pathname.toLowerCase().includes('seller')) {
+			return (
+				<Box
+					sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+					role="presentation"
+					onClick={toggleDrawer(anchor, false)}
+					onKeyDown={toggleDrawer(anchor, false)}
+				>
+					<List>
+						{['Home', 'Order List', 'Log Out'].map((text, index) => (
+							<ListItem key={text} disablePadding>
+								<ListItemButton onClick={() => openSide(text)}>
+									<ListItemIcon>
+										{getIcon(text)}
+									</ListItemIcon>
+									<ListItemText primary={text} />
+								</ListItemButton>
+							</ListItem>
+						))}
+					</List>
+					<Divider />
+				</Box>
+			)
+		}
+		return (
+			<Box
+				sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+				role="presentation"
+				onClick={toggleDrawer(anchor, false)}
+				onKeyDown={toggleDrawer(anchor, false)}
+			>
+				<List>
+					{['Home', 'My Orders', 'Cart', 'Log Out'].map((text, index) => (
+						<ListItem key={text} disablePadding>
+							<ListItemButton onClick={() => openSide(text)}>
+								<ListItemIcon>
+									{getIcon(text)}
+								</ListItemIcon>
+								<ListItemText primary={text} />
+							</ListItemButton>
+						</ListItem>
+					))}
+				</List>
+				<Divider />
+				{/* <List>
 				{['Log Out'].map((text, index) => (
 					<ListItem key={text} disablePadding>
 						<ListItemButton>
@@ -103,8 +148,9 @@ function NavBar() {
 					</ListItem>
 				))}
 			</List> */}
-		</Box>
-	)
+			</Box>
+		)
+	}
 
 
 
@@ -123,32 +169,6 @@ function NavBar() {
 	const moveToSellersOrders = () => {
 		history.push('/SellersOrders');
 	}
-	const RightSide = (type) => {
-		if(type === 'Seller'){
-			if(localStorage.getItem('seller_first_name')===null){
-				return (
-					<Button color="inherit" onClick={handleLoginSeller} sx={{ marginX: 2 }}>Login</Button>
-				)
-			}
-			else{
-				return (
-					<Button color="inherit" onClick = {moveToSellersOrders} sx={{ marginX: 2 }}>{localStorage.getItem('seller_first_name') + ' ' + localStorage.getItem('seller_last_name')}</Button>
-				)
-			}
-		}
-		else{
-			if(localStorage.getItem('first_name')===null){
-				return (
-					<Button color="inherit" onClick={handleLogin} sx={{ marginX: 2 }}>Login</Button>
-				)
-			}
-			else{
-				return (
-					<Button color="inherit" onClick = {moveToMyOrders} sx={{ marginX: 2 }}>{localStorage.getItem('first_name') + ' ' + localStorage.getItem('last_name')}</Button>
-				)
-			}
-		}
-	}
 	const CartButton = () => {
 		return (
 			<IconButton onClick={movetoCart}>
@@ -158,11 +178,39 @@ function NavBar() {
 			</IconButton>
 		)
 	}
+	const RightSide = (type) => {
+		if (type.toLowerCase() === 'seller') {
+			if (localStorage.getItem('seller_first_name') === null) {
+				return (
+					<Button color="inherit" onClick={handleLoginSeller} sx={{ marginX: 2 }}>Login</Button>
+				)
+			}
+			else {
+				return (
+					<Button color="inherit" onClick={moveToSellersOrders} sx={{ marginX: 2 }}>{localStorage.getItem('seller_first_name') + ' ' + localStorage.getItem('seller_last_name')}</Button>
+				)
+			}
+		}
+		else {
+			if (localStorage.getItem('first_name') === null) {
+				return (
+					<Button color="inherit" onClick={handleLogin} sx={{ marginX: 2 }}>Login</Button>
+				)
+			}
+			else {
+				return (
+					<Button color="inherit" onClick={moveToMyOrders} sx={{ marginX: 2 }}>{localStorage.getItem('first_name') + ' ' + localStorage.getItem('last_name')}</Button>
+				)
+			}
+		}
+	}
 	const anchor = 'left'
-	let location = useLocation()
 	const heading1 = location.pathname.substring(1)
-	const heading = (heading1.substring(0, 4)==="shop" ? "Shop" : heading1.charAt(0).toUpperCase() + heading1.slice(1))
-
+	const heading = (heading1.substring(0, 4) === "shop" ? "Shop" : heading1.charAt(0).toUpperCase() + heading1.slice(1))
+	const needCart = () => {
+		if (heading1.toLowerCase().includes('seller')) return false;
+		return true;
+	}
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static">
@@ -196,6 +244,7 @@ function NavBar() {
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 								Sign In
 							</Typography>
+							<CartButton />
 						</Route>
 						<Route exact path="/SignUp">
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -204,6 +253,20 @@ function NavBar() {
 							<CartButton />
 							{RightSide('buyer')}
 							{/* <Button color="inherit" onClick={handleLogin} sx={{ marginX: 2 }}>Login</Button> */}
+						</Route>
+						<Route exact path='/MyOrders/'>
+							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+								My Orders
+							</Typography>
+							<CartButton />
+							{RightSide('Buyer')}
+						</Route>
+						<Route exact path='/cart/'>
+							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+								Cart
+							</Typography>
+							<CartButton />
+							{RightSide('buyer')}
 						</Route>
 						<Route exact path='/seller/SignIn'>
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -217,12 +280,25 @@ function NavBar() {
 							{RightSide('Seller')}
 							{/* <Button color="inherit" onClick={handleLoginSeller} sx={{ marginX: 2 }}>Login</Button> */}
 						</Route>
+						<Route exact path='/SellersOrders'>
+							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+								Sellers Orders
+							</Typography>
+							{RightSide('Seller')}
+						</Route>
 						<Route exact path='/seller/'>
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 								Seller Dashboard
 							</Typography>
 							{RightSide('Seller')}
 							{/* <Button color="inherit" onClick={handleLoginSeller} sx={{ marginX: 2 }}>Login</Button> */}
+						</Route>
+						<Route path = '/Shop/'>
+							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+								Shop
+							</Typography>
+							<CartButton />
+							{RightSide('Buyer')}
 						</Route>
 						<Route path='/'>
 							{heading}
