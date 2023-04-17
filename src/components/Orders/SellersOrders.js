@@ -48,10 +48,10 @@ const OrderItem = (props) => {
                                 {prop.product.name}
                             </Typography>
                             <Typography gutterBottom variant="h5" component="h2">
-                                {prop.product.price}
+                                Price: &#8377;{prop.product.price}
                             </Typography>
                             <Typography gutterBottom variant="h5" component="h2">
-                                {prop.quantity}
+                                Quantity: {prop.quantity}
                             </Typography>
                         </CardContent>
                     </Card>

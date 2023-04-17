@@ -49,6 +49,10 @@ function SellerSignIn() {
 				localStorage.setItem('shopID', res.data['shop_id'])
 				localStorage.setItem('seller_first_name', res.data['firstName'])
 				localStorage.setItem('seller_last_name', res.data['lastName'])
+				axios.get(`http://127.0.0.1:8000/seller/details/${res.data['id']}/`).then((res) => {
+					console.log(res.data['wallet']);
+					localStorage.setItem('sellerWallet', res.data['wallet'])
+				})
 				history.push('/Seller/')
 			}
 			else {

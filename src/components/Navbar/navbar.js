@@ -26,6 +26,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 // import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import HomeIcon from '@mui/icons-material/Home';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import WalletIcon from '@mui/icons-material/Wallet';
+import axios from 'axios'
 const StyledBadge = styled(Badge)(({ theme }) => ({
 	'& .MuiBadge-badge': {
 		right: -3,
@@ -60,13 +63,13 @@ function NavBar() {
 			history.push('/SellersOrders/')
 		}
 	}
+	const [wallet, setWallet] = React.useState(0)
 	const [state, setState] = React.useState({
 		top: false,
 		left: false,
 		bottom: false,
 		right: false,
 	})
-
 	const toggleDrawer = (anchor, open) => (event) => {
 		if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
 			return
@@ -86,6 +89,9 @@ function NavBar() {
 		}
 		else if(text === 'Home'){
 			return (<HomeIcon />)
+		}
+		else if(text === 'Wallet'){
+			return (<AccountBalanceWalletIcon />)
 		}
 	}
 	const list = (anchor) => {
@@ -126,6 +132,7 @@ function NavBar() {
 							<ListItemButton onClick={() => openSide(text)}>
 								<ListItemIcon>
 									{getIcon(text)}
+									{/* {userMoney()} */}
 								</ListItemIcon>
 								<ListItemText primary={text} />
 							</ListItemButton>
@@ -169,6 +176,7 @@ function NavBar() {
 	const moveToSellersOrders = () => {
 		history.push('/SellersOrders');
 	}
+
 	const CartButton = () => {
 		return (
 			<IconButton onClick={movetoCart}>
@@ -178,10 +186,30 @@ function NavBar() {
 			</IconButton>
 		)
 	}
+	const Wallet = () => {
+		if(location.pathname.toLowerCase().includes('seller')){
+			if(localStorage.getItem('seller_first_name') === null){
+				return <Button color="inherit" sx={{ marginX: 2 }}><WalletIcon /> 0</Button>
+			}
+			else{
+				return <Button color="inherit" sx={{ marginX: 2 }}><WalletIcon /> {localStorage.getItem('sellerWallet')}</Button>
+			}
+		}
+		else{
+			if(localStorage.getItem('first_name') === null){
+				return <Button color="inherit" sx={{ marginX: 2 }}><WalletIcon /> 0</Button>
+			}
+			else{
+				return <Button color="inherit" sx={{ marginX: 2 }}><WalletIcon /> {localStorage.getItem('userWallet')}</Button>
+			}
+		}	
+	}
+
 	const RightSide = (type) => {
 		if (type.toLowerCase() === 'seller') {
 			if (localStorage.getItem('seller_first_name') === null) {
 				return (
+					
 					<Button color="inherit" onClick={handleLoginSeller} sx={{ marginX: 2 }}>Login</Button>
 				)
 			}
@@ -237,6 +265,7 @@ function NavBar() {
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 								Dashboard
 							</Typography>
+							{Wallet()}
 							<CartButton />
 							{RightSide('Buyer')}
 						</Route>
@@ -244,12 +273,14 @@ function NavBar() {
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 								Sign In
 							</Typography>
+							{Wallet()}
 							<CartButton />
 						</Route>
 						<Route exact path="/SignUp">
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 								Sign Up
 							</Typography>
+							{Wallet()}
 							<CartButton />
 							{RightSide('buyer')}
 							{/* <Button color="inherit" onClick={handleLogin} sx={{ marginX: 2 }}>Login</Button> */}
@@ -258,6 +289,7 @@ function NavBar() {
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 								My Orders
 							</Typography>
+							{Wallet()}
 							<CartButton />
 							{RightSide('Buyer')}
 						</Route>
@@ -265,6 +297,7 @@ function NavBar() {
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 								Cart
 							</Typography>
+							{Wallet()}
 							<CartButton />
 							{RightSide('buyer')}
 						</Route>
@@ -272,11 +305,13 @@ function NavBar() {
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 								Seller Sign In
 							</Typography>
+							{Wallet()}
 						</Route>
 						<Route exact path='/seller/SignUp'>
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 								Seller Sign Up
 							</Typography>
+							{Wallet()}
 							{RightSide('Seller')}
 							{/* <Button color="inherit" onClick={handleLoginSeller} sx={{ marginX: 2 }}>Login</Button> */}
 						</Route>
@@ -284,12 +319,14 @@ function NavBar() {
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 								Sellers Orders
 							</Typography>
+							{Wallet()}
 							{RightSide('Seller')}
 						</Route>
 						<Route exact path='/seller/'>
 							<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 								Seller Dashboard
 							</Typography>
+							{Wallet()}
 							{RightSide('Seller')}
 							{/* <Button color="inherit" onClick={handleLoginSeller} sx={{ marginX: 2 }}>Login</Button> */}
 						</Route>
@@ -298,6 +335,7 @@ function NavBar() {
 								Shop
 							</Typography>
 							<CartButton />
+							{Wallet()}
 							{RightSide('Buyer')}
 						</Route>
 						<Route path='/'>

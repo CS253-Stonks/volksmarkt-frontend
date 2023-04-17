@@ -65,10 +65,10 @@ const OrderItem = (props) => {
                                 {product.name}
                             </Typography>
                             <Typography gutterBottom variant="h5" component="h2">
-                                {product.price}
+                                Price: &#8377;{product.price}
                             </Typography>
                             <Typography gutterBottom variant="h5" component="h2">
-                                {card.quantity}
+                                Quantity: {card.quantity}
                             </Typography>
                         </CardContent>
                     </Card>
@@ -231,9 +231,9 @@ const OrderCard = (props) => {
                             <Button size="medium" onClick = {toggleDrawer(anchor, true)} sx={{
                                 height: '30px',
                             }} variant="contained">VIEW ORDER DETAILS</Button>
-                            <Button size="medium" sx={{
+                            {/* <Button size="medium" sx={{
                                 height: '30px'
-                            }} variant="contained">BUY AGAIN</Button>
+                            }} variant="contained">BUY AGAIN</Button> */}
                         </CardActions>
                     </Paper>
                     <CardMedia
