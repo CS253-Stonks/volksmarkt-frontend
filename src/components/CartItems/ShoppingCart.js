@@ -71,6 +71,14 @@ const ShoppingCart = () => {
 		axios.post(`http://127.0.0.1:8000/Shopping/PlaceOrder/${user}/`, z)
 
 		alert('Order Placed')
+		axios
+          .get(
+            `http://127.0.0.1:8000/buyer/details/${localStorage.getItem('userID')}/`
+          )
+          .then((res) => {
+            console.log(res.data["wallet"]);
+            localStorage.setItem("userWallet", res.data["wallet"]);
+          });
 		history.push('/')
 	}
 
