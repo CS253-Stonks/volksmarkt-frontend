@@ -28,6 +28,7 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import WalletIcon from '@mui/icons-material/Wallet';
+import LoginIcon from '@mui/icons-material/Login';
 import axios from 'axios'
 const StyledBadge = styled(Badge)(({ theme }) => ({
 	'& .MuiBadge-badge': {
@@ -62,6 +63,9 @@ function NavBar() {
 		else if(text === 'Order List'){
 			history.push('/SellersOrders/')
 		}
+		else if(text === 'Seller Sign In'){
+			history.push('/Seller/SignIn/')
+		}
 	}
 	const [wallet, setWallet] = React.useState(0)
 	const [state, setState] = React.useState({
@@ -92,6 +96,9 @@ function NavBar() {
 		}
 		else if(text === 'Wallet'){
 			return (<AccountBalanceWalletIcon />)
+		}
+		else if(text === 'Seller Sign In'){
+			return (<LoginIcon />)
 		}
 	}
 	const list = (anchor) => {
@@ -127,7 +134,7 @@ function NavBar() {
 				onKeyDown={toggleDrawer(anchor, false)}
 			>
 				<List>
-					{['Home', 'My Orders', 'Cart', 'Log Out'].map((text, index) => (
+					{['Home', 'My Orders', 'Cart', 'Log Out', 'Seller Sign In'].map((text, index) => (
 						<ListItem key={text} disablePadding>
 							<ListItemButton onClick={() => openSide(text)}>
 								<ListItemIcon>
