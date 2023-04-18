@@ -57,6 +57,9 @@ function ComplexGrid(props) {
 							<Typography variant="body2" gutterBottom>
 								{product.description}
 							</Typography>
+							<Typography variant="body2" color="text.secondary">
+								Quantity: {product.quantity}
+							</Typography>
 						</Grid>
 						<Grid item sx={{
 							display: 'flex',
